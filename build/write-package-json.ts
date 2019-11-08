@@ -20,6 +20,9 @@ export default async function (
       node: `>=12.13.0`,
     },
     engineStrict: true,
+    publishConfig: {
+      access: `public`,
+    },
     private: false,
     files: [
       `!meta`,
