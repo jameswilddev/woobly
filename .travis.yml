@@ -4,6 +4,12 @@ matrix:
       language: node_js
       node_js:
         - 12
+      deploy:
+        - provider: script
+          script: echo $NPM_AUTH > ~/.npmrc && npm publish @woobly/build-tool-helpers
+          skip_cleanup: true
+          on:
+            branch: master
     - os: windows
       language: node_js
       node_js:
