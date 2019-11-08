@@ -25,7 +25,7 @@ export default async function (
     },
     private: false,
     files: [
-      `!meta`,
+      `!meta/**/*`,
       `**/*.js`,
       `**/*.d.ts`,
       `!**/*-tests.*`,
