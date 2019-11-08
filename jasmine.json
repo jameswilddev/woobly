@@ -1,0 +1,8 @@
+{
+  "spec_dir": "@woobly",
+  "spec_files": [
+    "**/*-tests.js"
+  ],
+  "oneFailurePerSpec": true,
+  "random": true
+}

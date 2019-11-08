@@ -1,0 +1,14 @@
+matrix:
+  include:
+    - os: linux
+      language: node_js
+      node_js:
+        - 10
+    - os: windows
+      language: node_js
+      node_js:
+        - 10
+    - os: osx
+      language: node_js
+      node_js:
+        - 10

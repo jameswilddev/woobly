@@ -1,0 +1,25 @@
+{
+  "name": "woobly",
+  "description": "This is the build tool for Woobly and its standard plug-ins.",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "engineStrict": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jameswilddev/woobly"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "3.4.6",
+    "@types/node": "12.12.6",
+    "jasmine": "3.5.0",
+    "nyc": "14.1.1",
+    "rimraf": "^3.0.0",
+    "typescript": "3.7.2"
+  },
+  "scripts": {
+    "test": "rimraf @woobly/**/*.js build/**/*.js @woobly/**/*.d.ts build/**/*.d.ts && tsc && node build && nyc --check-coverage --all --exclude \"**/*-tests.*\" --exclude \"build/**/*\" --lines 100 --functions 100 --branches 100 --statements 100 jasmine --config=jasmine.json"
+  }
+}

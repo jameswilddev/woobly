@@ -1,0 +1,24 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.rulers": [
+    80
+  ],
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.exclude": {
+    ".nyc_output": true,
+    "node_modules": true,
+    "@woobly/*/license": true,
+    "@woobly/*/package.json": true,
+    "**/*.js": true,
+    "**/*.d.ts": true
+  },
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
+}
