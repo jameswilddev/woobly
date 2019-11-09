@@ -11,7 +11,7 @@ export default async function (
   readonly scripts?: { readonly [name: string]: string }
 }> {
   console.log(`Reading package.json...`)
-  const packageJsonPath = path.join.apply(path, name.concat([`meta`, `package.json`]))
+  const packageJsonPath = path.join.apply(path, [`build`, `package-jsons`].concat(name).concat([`package.json`]))
   const packageJson = await fs.promises.readFile(packageJsonPath, `utf8`)
   return JSON.parse(packageJson)
 }
