@@ -10,11 +10,13 @@ matrix:
           skip_cleanup: true
           on:
             branch: master
+            condition: npm view @woobly/build-tool-helpers version != npm view ./@woobly/build-tool-helpers version
         - provider: script
           script: echo $NPM_AUTH > ~/.npmrc && npm publish woobly
           skip_cleanup: true
           on:
             branch: master
+            condition: npm view woobly version != npm view ./woobly version
     - os: windows
       language: node_js
       node_js:
