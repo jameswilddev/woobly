@@ -5,8 +5,8 @@ export default async function (
 ): Promise<string> {
   return await new Promise((resolve, reject) => {
     childProcess.exec(command, (error, stdout, stderr) => {
-      if (error || stderr) {
-        reject(new Error(`Command "${command}" failed (stdout: "${stdout}"; stderr: "${stderr}").`))
+      if (error) {
+        reject(new Error(`Command "${command}" exited with code ${error.code} (stdout: "${stdout}"; stderr: "${stderr}").`))
       } else {
         resolve(stdout)
       }
