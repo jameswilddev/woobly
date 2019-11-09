@@ -13,6 +13,18 @@ export default async function (
 ): Promise<void> {
   console.log(`Writing package.json...`)
   const newPackageJsonPath = path.join.apply(path, name.concat([`package.json`]))
+
+  let hasTypes = true
+  try {
+    await fs.promises.stat(path.join.apply(path, name.concat([`index.ts`])))
+  } catch (e) {
+    if (e.code === `ENOENT`) {
+      hasTypes = false
+    } else {
+      throw e
+    }
+  }
+
   const newPackageJson = {
     name: `${name.join(`/`)}`,
     description: originalPackageJson.description,
@@ -38,7 +50,9 @@ export default async function (
     dependencies: originalPackageJson.dependencies,
     bin: originalPackageJson.bin,
     scripts: originalPackageJson.scripts,
+    types: hasTypes ? `index.d.ts` : undefined,
   }
+
   const newPackageJsonText = `${JSON.stringify(newPackageJson, null, 2)}\n`
   await fs.promises.writeFile(newPackageJsonPath, newPackageJsonText)
 }
