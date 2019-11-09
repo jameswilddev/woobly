@@ -8,6 +8,7 @@ export default async function (
     readonly version: string
     readonly dependencies?: { readonly [name: string]: string }
     readonly bin?: { readonly [name: string]: string }
+    readonly scripts?: { readonly [name: string]: string }
   }
 ): Promise<void> {
   console.log(`Writing package.json...`)
@@ -37,6 +38,7 @@ export default async function (
     license: `MIT`,
     dependencies: originalPackageJson.dependencies,
     bin: originalPackageJson.bin,
+    scripts: originalPackageJson.scripts,
   }
   const newPackageJsonText = `${JSON.stringify(newPackageJson, null, 2)}\n`
   await fs.promises.writeFile(newPackageJsonPath, newPackageJsonText)

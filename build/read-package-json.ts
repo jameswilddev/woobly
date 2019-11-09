@@ -8,6 +8,7 @@ export default async function (
   readonly version: string
   readonly dependencies?: { readonly [name: string]: string }
   readonly bin?: { readonly [name: string]: string }
+  readonly scripts?: { readonly [name: string]: string }
 }> {
   console.log(`Reading package.json...`)
   const packageJsonPath = path.join.apply(path, name.concat([`meta`, `package.json`]))
