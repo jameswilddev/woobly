@@ -1,6 +1,6 @@
 import { filePathShouldBeProcessed } from "./index"
 
-describe(`@woobly/build-tools`, () => {
+describe(`@woobly/build-tool-helpers`, () => {
   describe(`filePathShouldBeProcessed`, () => {
     function accepts(
       description: string,

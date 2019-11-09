@@ -1,7 +1,7 @@
 import * as typescript from "typescript"
 import { typeScriptCompilerOptions } from "./index"
 
-describe(`@woobly/build-tools`, () => {
+describe(`@woobly/build-tool-helpers`, () => {
   describe(`typeScriptCompilerOptions`, () => {
     it(
       `exports the expected options`,

@@ -3,7 +3,7 @@ import * as fs from "fs"
 import * as path from "path"
 import { sha1File } from "./index"
 
-describe(`@woobly/build-tools`, () => {
+describe(`@woobly/build-tool-helpers`, () => {
   describe(`sha1File`, () => {
     let dir: string
     beforeAll(async () => {

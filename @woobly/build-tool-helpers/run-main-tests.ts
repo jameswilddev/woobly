@@ -1,6 +1,6 @@
 import { runMain } from "./index"
 
-describe(`@woobly/build-tools`, () => {
+describe(`@woobly/build-tool-helpers`, () => {
   describe(`runMain`, () => {
     function withFakedGlobals(
       description: string,

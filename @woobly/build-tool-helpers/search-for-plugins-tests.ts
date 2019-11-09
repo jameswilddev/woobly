@@ -1,7 +1,7 @@
 import * as path from "path"
 import { searchForPlugins } from "./index"
 
-describe(`@woobly/build-tools`, () => {
+describe(`@woobly/build-tool-helpers`, () => {
   describe(`searchForPlugins`, () => {
     const originalWorkingDirectory = process.cwd()
 
