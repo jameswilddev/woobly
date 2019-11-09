@@ -24,7 +24,7 @@ For it to work, your TypeScript needs to follow some rules:
 
 Name                                                     | Version                                                                                                                           | Description                                                            
 -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------
-[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.6](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
+[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.7](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
 [woobly](woobly)                                         | [![0.0.3](https://img.shields.io/npm/v/woobly.svg)](https://www.npmjs.com/package/woobly)                                         | This is a stub package.  You probably want a @woobly/* package instead.
 
 ## License
