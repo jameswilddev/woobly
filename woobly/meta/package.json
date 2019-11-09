@@ -1,0 +1,7 @@
+{
+  "description": "This is a stub package.  You probably want a @woobly/* package instead.",
+  "version": "0.0.0",
+  "scripts": {
+    "postinstall": "echo This is a stub package.  You probably want a @woobly/* package instead."
+  }
+}

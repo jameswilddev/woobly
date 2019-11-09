@@ -10,6 +10,11 @@ matrix:
           skip_cleanup: true
           on:
             branch: master
+        - provider: script
+          script: echo $NPM_AUTH > ~/.npmrc && npm publish woobly
+          skip_cleanup: true
+          on:
+            branch: master
     - os: windows
       language: node_js
       node_js:
