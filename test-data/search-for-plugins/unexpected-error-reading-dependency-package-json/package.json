@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "non-plugin-a": "0.0.0",
+    "non-plugin-b": "0.0.0",
+    "non-plugin-c": "0.0.0",
+    "non-plugin-d": "0.0.0"
+  }
+}
