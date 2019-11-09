@@ -1,10 +1,10 @@
 import generateReadmeBadges from "./generate-readme-badges"
 
 export default function (
-  name: string,
+  name: ReadonlyArray<string>,
   description: string,
 ): string {
-  return `# \`@woobly/${name}\` ${generateReadmeBadges(name)}
+  return `# \`${name.join(`/`)}\` ${generateReadmeBadges(name)}
 
 ${description}
 

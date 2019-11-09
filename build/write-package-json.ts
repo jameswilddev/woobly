@@ -2,7 +2,7 @@ import * as fs from "fs"
 import * as path from "path"
 
 export default async function (
-  name: string,
+  name: ReadonlyArray<string>,
   originalPackageJson: {
     readonly description: string
     readonly version: string
@@ -11,9 +11,9 @@ export default async function (
   }
 ): Promise<void> {
   console.log(`Writing package.json...`)
-  const newPackageJsonPath = path.join(`@woobly`, name, `package.json`)
+  const newPackageJsonPath = path.join.apply(path, name.concat([`package.json`]))
   const newPackageJson = {
-    name: `@woobly/${name}`,
+    name: `${name.join(`/`)}`,
     description: originalPackageJson.description,
     version: originalPackageJson.version,
     engines: {
