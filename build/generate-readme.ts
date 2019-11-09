@@ -1,4 +1,5 @@
 import generateReadmeBadges from "./generate-readme-badges"
+import generateReadmeFooter from "./generate-readme-footer"
 
 export default function (
   name: ReadonlyArray<string>,
@@ -8,7 +9,5 @@ export default function (
 
 ${description}
 
-## License
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly?ref=badge_large)`
+${generateReadmeFooter()}`
 }
