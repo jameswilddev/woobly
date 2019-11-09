@@ -2,9 +2,7 @@
 /node_modules
 /@woobly/*/package.json
 /@woobly/*/license
-/@woobly/*/readme.md
 /woobly/package.json
 /woobly/license
-/woobly/readme.md
 *.js
 *.d.ts

@@ -17,10 +17,8 @@
     "node_modules": true,
     "@woobly/*/license": true,
     "@woobly/*/package.json": true,
-    "@woobly/*/readme.md": true,
     "woobly/license": true,
     "woobly/package.json": true,
-    "woobly/readme.md": true,
     "**/*.js": true,
     "**/*.d.ts": true
   },
