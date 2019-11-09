@@ -1,5 +1,6 @@
 import * as fs from "fs"
 import processPackage from "./process-package"
+import writeRootReadme from "./write-root-readme"
 
 export default async function (): Promise<void> {
   console.log(`Ensuring that directory exists for stub package...`)
@@ -10,4 +11,6 @@ export default async function (): Promise<void> {
   for (const name of await fs.promises.readdir(`@woobly`)) {
     await processPackage([`@woobly`, name])
   }
+
+  await writeRootReadme()
 }
