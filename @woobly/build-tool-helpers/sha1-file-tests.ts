@@ -1,7 +1,7 @@
 import * as os from "os"
 import * as fs from "fs"
 import * as path from "path"
-import { sha1File } from "./index"
+import sha1File from "./sha1-file"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`sha1File`, () => {
