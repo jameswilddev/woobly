@@ -20,6 +20,36 @@ For it to work, your TypeScript needs to follow some rules:
 - Any side effects other than declarations (DOM, etc.) can't be rolled back when
   the file is deleted or updated.
 
+## Plugins and content
+
+In addition to TypeScript, additional file types can be imported, for which
+TypeScript is generated and included in the build.
+
+Given the file path
+`src/a-directory/a-subdirectory/a-file-name.multi.part.extension`, the plugin
+which declares that it handles `multi.part.extension` files will generate
+TypeScript which declares `aDirectoryASubdirectoryAFileName` on the global
+scope for your TypeScript to use.
+
+Plugins are discovered through `package.json`; execute
+`npm install --save-dev {plugin-name}` to install a plugin.
+
+### Implementing plugins
+
+Plugins should depend upon `@woobly/plugin-helpers` and default export a
+fulfilment of its exported `Plugin` type.
+
+Additionally, their `package.json` files should include the metadata used to
+match it to files:
+
+```json
+{
+  "wooblyPlugin": {
+    "fileExtension": "any.file.extension"
+  }
+}
+```
+
 ## NPM packages
 
 Name                                                     | Version                                                                                                                           | Description                                                            
