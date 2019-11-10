@@ -1,5 +1,5 @@
 import * as path from "path"
-import determinePurposeOfFilePath from "./determine-purpose-of-file-path"
+import { determinePurposeOfFilePath } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`determinePurposeOfFilePath`, () => {

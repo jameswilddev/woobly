@@ -5,3 +5,5 @@ export { default as typeScriptCompilerOptions } from "./type-script-compiler-opt
 export { default as filePathShouldBeProcessed } from "./file-path-should-be-processed"
 
 export { default as searchForPlugins } from "./search-for-plugins"
+
+export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
