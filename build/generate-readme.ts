@@ -10,5 +10,6 @@ export default function (
 
 ${description}
 
-${generateReadmeFooter()}`
+${generateReadmeFooter()}
+`
 }

@@ -58,5 +58,6 @@ match it to files:
 
 ${generateRootReadmePackageTable()}
 
-${generateReadmeFooter()}`
+${generateReadmeFooter()}
+`
 }
