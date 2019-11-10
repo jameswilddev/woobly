@@ -7,6 +7,7 @@ export default async function (
     readonly description: string
     readonly version: string
     readonly dependencies?: { readonly [name: string]: string }
+    readonly devDependencies?: { readonly [name: string]: string }
     readonly bin?: { readonly [name: string]: string }
     readonly scripts?: { readonly [name: string]: string }
   }
@@ -48,6 +49,7 @@ export default async function (
     },
     license: `MIT`,
     dependencies: originalPackageJson.dependencies,
+    devDependencies: originalPackageJson.devDependencies,
     bin: originalPackageJson.bin,
     scripts: originalPackageJson.scripts,
     types: hasTypes ? `index.d.ts` : undefined,
