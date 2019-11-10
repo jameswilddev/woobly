@@ -1,7 +1,4 @@
 {
-  "exclude": [
-    "test-data"
-  ],
   "compilerOptions": {
     "charset": "utf8",
     "composite": false,
@@ -66,10 +63,6 @@
     "resolveJsonModule": false,
     "lib": [
       "es2018"
-    ],
-    "types": [
-      "node",
-      "jasmine"
     ]
   }
 }
