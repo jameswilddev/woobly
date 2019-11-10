@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "test-a-dependency": "0.0.0",
+    "test-b-dependency": "0.0.0",
+    "test-c-dependency": "0.0.0"
+  }
+}

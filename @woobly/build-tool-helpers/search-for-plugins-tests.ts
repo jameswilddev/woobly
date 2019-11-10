@@ -58,10 +58,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
     resolves(`without plugins`, `without-plugins`, {})
 
-    resolves(`without dependencies`, `without-dependencies`, {})
-
-    rejects(`no package.json`, `no-package-json`, `Failed to find the "package.json" file.  Please ensure that the current working directory is the root of the project.`)
-    rejects(`unexpected error reading package.json`, `unexpected-error-reading-package-json`, `EISDIR: illegal operation on a directory, read`)
     rejects(`node_modules missing`, `node-modules-missing`, `The "node_modules" directory is missing.  Please ensure that dependencies have been installed (execute "npm install").`)
     rejects(`dependency missing`, `dependency-missing`, `Dependency "non-plugin-c" is missing from the "node_modules" directory.  Please ensure that dependencies have been installed (execute "npm install").`)
     rejects(`dependency missing package.json`, `dependency-missing-package-json`, `Dependency "non-plugin-c" is missing its "package.json" file.  Please ensure that dependencies have been installed (execute "npm install").`)
