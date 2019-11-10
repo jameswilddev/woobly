@@ -1,4 +1,7 @@
 {
+  "exclude": [
+    "test-data"
+  ],
   "compilerOptions": {
     "charset": "utf8",
     "composite": false,
