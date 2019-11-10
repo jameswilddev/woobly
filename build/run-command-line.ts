@@ -8,6 +8,7 @@ export default async function (
       if (error) {
         reject(new Error(`Command "${command}" exited with code ${error.code} (stdout: "${stdout}"; stderr: "${stderr}").`))
       } else {
+        console.log(stderr)
         resolve(stdout)
       }
     })
