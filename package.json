@@ -1,5 +1,5 @@
 {
-  "name": "woobly",
+  "name": "@woobly/build",
   "description": "This is the build tool for Woobly and its standard plug-ins.",
   "version": "0.0.0",
   "engines": {
