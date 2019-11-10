@@ -52,10 +52,10 @@ match it to files:
 
 ## NPM packages
 
-Name                                                     | Version                                                                                                                           | Description                                                            
--------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------
-[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.9](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
-[woobly](woobly)                                         | [![0.0.3](https://img.shields.io/npm/v/woobly.svg)](https://www.npmjs.com/package/woobly)                                         | This is a stub package.  You probably want a @woobly/* package instead.
+Name                                                     | Version                                                                                                                            | Description                                                            
+-------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------
+[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.10](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
+[woobly](woobly)                                         | [![0.0.4](https://img.shields.io/npm/v/woobly.svg)](https://www.npmjs.com/package/woobly)                                          | This is a stub package.  You probably want a @woobly/* package instead.
 
 ## License
 
