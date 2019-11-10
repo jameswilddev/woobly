@@ -3,6 +3,7 @@ import readPackageJson from "./read-package-json"
 import copyLicense from "./copy-license"
 import writePackageJson from "./write-package-json"
 import allPackages from "./all-packages"
+import installDependencies from "./install-dependencies"
 
 export default async function (
   name: ReadonlyArray<string>
@@ -17,4 +18,5 @@ export default async function (
   await writeReadme(name, originalPackageJson.description)
   await copyLicense(name)
   await writePackageJson(name, originalPackageJson)
+  await installDependencies(name)
 }
