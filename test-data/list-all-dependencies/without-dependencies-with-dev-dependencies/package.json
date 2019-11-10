@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "test-a-dev-dependency": "0.0.0",
+    "test-b-dev-dependency": "0.0.0",
+    "test-c-dev-dependency": "0.0.0"
+  }
+}

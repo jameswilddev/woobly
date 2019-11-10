@@ -15,9 +15,27 @@ export default async function listAllDependencies(
 
   const packageJson: {
     readonly dependencies?: { readonly [key: string]: string }
+    readonly devDependencies?: { readonly [key: string]: string }
   } = JSON.parse(packageJsonText)
 
-  return Object
-    .keys(packageJson.dependencies || {})
-    .sort()
+  const output: string[] = []
+
+  function appendFrom(dependencies?: { readonly [key: string]: string }): void {
+    if (!dependencies) {
+      return
+    }
+
+    for (const key in dependencies) {
+      if (!output.includes(key)) {
+        output.push(key)
+      }
+    }
+  }
+
+  appendFrom(packageJson.dependencies)
+  appendFrom(packageJson.devDependencies)
+
+  output.sort()
+
+  return output
 }

@@ -50,13 +50,25 @@ describe(`@woobly/build-tool-helpers`, () => {
       })
     }
 
+    resolves(`without dependencies without devDependencies`, `without-dependencies-without-dev-dependencies`, [])
+
     resolves(
-      `with dependencies`,
-      `with-dependencies`,
+      `with dependencies without devDependencies`,
+      `with-dependencies-without-dev-dependencies`,
       [`test-a-dependency`, `test-b-dependency`, `test-c-dependency`],
     )
 
-    resolves(`without dependencies`, `without-dependencies`, [])
+    resolves(
+      `without dependencies with devDependencies`,
+      `without-dependencies-with-dev-dependencies`,
+      [`test-a-dev-dependency`, `test-b-dev-dependency`, `test-c-dev-dependency`],
+    )
+
+    resolves(
+      `with dependencies with devDependencies`,
+      `with-dependencies-with-dev-dependencies`,
+      [`test-a-dependency`, `test-b-dev-dependency`, `test-c-common-dependency`, `test-d-dependency`, `test-e-dev-dependency`],
+    )
 
     rejects(`no package.json`, `no-package-json`, `Failed to find the "package.json" file.  Please ensure that the current working directory is the root of the project.`)
     rejects(`unexpected error reading package.json`, `unexpected-error-reading-package-json`, `EISDIR: illegal operation on a directory, read`)
