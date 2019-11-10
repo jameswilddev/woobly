@@ -7,3 +7,5 @@ export { default as filePathShouldBeProcessed } from "./file-path-should-be-proc
 export { default as searchForPlugins } from "./search-for-plugins"
 
 export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
+
+export { default as mapProgress } from "./map-progress"
