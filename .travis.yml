@@ -4,6 +4,8 @@ matrix:
       language: node_js
       node_js:
         - 12
+      env:
+        - WOOBLY_CI=true
       deploy:
         - provider: script
           script: echo $NPM_AUTH > ~/.npmrc && node publish
@@ -14,7 +16,11 @@ matrix:
       language: node_js
       node_js:
         - 12
+      env:
+        - WOOBLY_CI=true
     - os: osx
       language: node_js
       node_js:
         - 12
+      env:
+        - WOOBLY_CI=true
