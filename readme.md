@@ -55,6 +55,7 @@ match it to files:
 Name                                                     | Version                                                                                                                            | Description                                                            
 -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------
 [@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.10](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
+[@woobly/plugin-helpers](@woobly/plugin-helpers)         | [![0.0.0](https://img.shields.io/npm/v/@woobly/plugin-helpers.svg)](https://www.npmjs.com/package/@woobly/plugin-helpers)          | Common helpers used by Woobly plugins.                                 
 [woobly](woobly)                                         | [![0.0.4](https://img.shields.io/npm/v/woobly.svg)](https://www.npmjs.com/package/woobly)                                          | This is a stub package.  You probably want a @woobly/* package instead.
 
 ## License
