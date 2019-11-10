@@ -12,6 +12,7 @@ That last one comes with some caveats though!
 
 For it to work, your TypeScript needs to follow some rules:
 
+- It needs to be in the `src` directory (or one of its subdirectories).
 - Be purely declarative.  Entry points are configured which should be where all
   the action happens.
 - No global `const` or `let` which depend on other files for initialization;
@@ -94,7 +95,7 @@ Black on white.
 
 Black on black.
 
-- `blackTranslucent`
+##### `blackTranslucent`
 
 White with a transparent background.
 

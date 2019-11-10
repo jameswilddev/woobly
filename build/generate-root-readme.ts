@@ -101,7 +101,7 @@ Black on white.
 
 Black on black.
 
-- \`blackTranslucent\`
+##### \`blackTranslucent\`
 
 White with a transparent background.
 
