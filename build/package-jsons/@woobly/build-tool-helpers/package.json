@@ -2,6 +2,7 @@
   "description": "Common helpers used by Woobly build tools.",
   "version": "0.0.10",
   "dependencies": {
+    "jsonschema": "1.2.4",
     "progress": "2.0.3",
     "typescript": "3.7.2"
   },
