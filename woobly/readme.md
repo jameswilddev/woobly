@@ -2,6 +2,10 @@
 
 This is a stub package.  You probably want a @woobly/* package instead.
 
+## Dependencies
+
+This package has no runtime dependencies.
+
 ## License
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly?ref=badge_large)

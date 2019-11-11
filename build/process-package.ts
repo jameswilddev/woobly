@@ -15,7 +15,7 @@ export default async function (
     version: originalPackageJson.version,
     description: originalPackageJson.description,
   })
-  await writeReadme(name, originalPackageJson.description)
+  await writeReadme(name, originalPackageJson.description, originalPackageJson.dependencies)
   await copyLicense(name)
   await writePackageJson(name, originalPackageJson)
   await installDependencies(name)

@@ -2,6 +2,16 @@
 
 Common helpers used by Woobly build tools.
 
+## Dependencies
+
+This package has the following runtime dependencies:
+
+Name       | Version                                                                                          
+---------- | -------------------------------------------------------------------------------------------------
+jsonschema | [![1.2.4](https://img.shields.io/npm/v/jsonschema.svg)](https://www.npmjs.com/package/jsonschema)
+progress   | [![2.0.3](https://img.shields.io/npm/v/progress.svg)](https://www.npmjs.com/package/progress)    
+typescript | [![3.7.2](https://img.shields.io/npm/v/typescript.svg)](https://www.npmjs.com/package/typescript)
+
 ## License
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fwoobly?ref=badge_large)
