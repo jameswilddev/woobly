@@ -1,0 +1,29 @@
+{
+  "entry": "testValidApplication",
+  "logo": {
+    "filePath": [
+      "path-to",
+      "valid",
+      "logo.txt"
+    ],
+    "pixelArt": true,
+    "backgroundColor": "Test Valid Background Color"
+  }
+  "application": {
+    "name": {
+      "long": "Test Valid Long Name",
+      "short": "Test Valid Short Name"
+    },
+    "description": "Test Valid Description",
+    "language": "Test Valid Language",
+    "version": "Test Valid Version",
+    "color": "Test Valid Color",
+    "appleStatusBarStyle": "blackTranslucent",
+    "display": "browser",
+    "orientation": "natural"
+  },
+  "developer": {
+    "name": "Test Valid Developer Name",
+    "website": "https://test-developer.com/website"
+  }
+}

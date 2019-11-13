@@ -77,6 +77,34 @@ describe(`@woobly/build-tool-helpers`, () => {
       )
     }
 
+    function resolvesApplication(
+      description: string,
+      filePath: string,
+      plugins: { readonly [fileExtension: string]: string },
+      processedFilePath: ReadonlyArray<string>,
+      sha1: string,
+      logoSha1: string,
+      json: any,
+    ): void {
+      scenario(
+        description,
+        filePath,
+        filePath => {
+          it(
+            `resolves including the type, file path, application sha1, logo sha1 and json`,
+            () => expectAsync(determinePurposeOfFilePath(plugins, filePath))
+              .toBeResolvedTo({
+                type: `application`,
+                filePath: processedFilePath,
+                sha1,
+                logoSha1,
+                json,
+              })
+          )
+        }
+      )
+    }
+
     function rejects(
       description: string,
       filePath: string,
@@ -122,6 +150,74 @@ describe(`@woobly/build-tool-helpers`, () => {
         {},
         filePath => `No installed plugin handles files with the extension "test-unimplemented-file-extension" (from file "${filePath}").  Please ensure that the required plugin is installed, and that this file's extension is correct.  There are no plugins installed; execute "npm install --save-dev {plugin name}" to install plugins.`
       )
+
+      resolvesApplication(
+        `when the file path is a valid application`,
+        `valid-app-file.application.json`,
+        {},
+        [`subdirectory-a`, `subdirectory-b`, `valid-app-file`],
+        `8edecef5ef36faa0729a5b4d1c80936bbc37fa35`,
+        `f8ba41cae9af739e1bacb60a01b6586df0ef638a`,
+        {
+          entry: `testValidApplication`,
+          logo: {
+            filePath: [`path-to`, `valid`, `logo.txt`],
+            pixelArt: true,
+            backgroundColor: `Test Valid Background Color`,
+          },
+          application: {
+            name: {
+              long: `Test Valid Long Name`,
+              short: `Test Valid Short Name`,
+            },
+            description: `Test Valid Description`,
+            language: `Test Valid Language`,
+            version: `Test Valid Version`,
+            color: `Test Valid Color`,
+            appleStatusBarStyle: `blackTranslucent`,
+            display: `browser`,
+            orientation: `natural`,
+          },
+          developer: {
+            name: `Test Valid Developer Name`,
+            website: `https://test-developer.com/website`,
+          },
+        },
+      )
+
+      rejects(
+        `when the file path is an application which does not deserialize`,
+        `non-deserializable-app-file.application.json`,
+        {},
+        () => `Unexpected string in JSON at position 215`
+      )
+
+      rejects(
+        `when the file path is an application which has validation errors`,
+        `app-file-with-validation-errors.application.json`,
+        {},
+        filePath => `Application JSON "${filePath}" is not valid; the following errors were detected:
+\tinstance.logo.pixelArt - is not of a type(s) boolean
+\tinstance.application.name - requires property "long"
+\tinstance.application.display - is not one of enum values: standalone,fullScreen,minimalUi,browser`
+      )
+
+      rejects(
+        `when the file path is an application which has a missing logo`,
+        `app-file-with-missing-logo.application.json`,
+        {},
+        () => `ENOENT: no such file or directory, open '${path.join(`path-to`, `missing`, `logo.txt`)}'`,
+      )
+
+      rejects(
+        `when the file path is an application which has validation errors and a missing logo file`,
+        `app-file-with-validation-errors-and-missing-logo.application.json`,
+        {},
+        filePath => `Application JSON "${filePath}" is not valid; the following errors were detected:
+\tinstance.logo.pixelArt - is not of a type(s) boolean
+\tinstance.application.name - requires property "long"
+\tinstance.application.display - is not one of enum values: standalone,fullScreen,minimalUi,browser`
+      )
     })
 
     describe(`when plugins are installed`, () => {
@@ -165,6 +261,74 @@ describe(`@woobly/build-tool-helpers`, () => {
         `testPluginC`,
         `subdirectoryASubdirectoryBContentFileWithImplementedExtension`,
         `a11d03065c30133aaabe7118db64adee9da30606`,
+      )
+
+      resolvesApplication(
+        `when the file path is a valid application`,
+        `valid-app-file.application.json`,
+        plugins,
+        [`subdirectory-a`, `subdirectory-b`, `valid-app-file`],
+        `8edecef5ef36faa0729a5b4d1c80936bbc37fa35`,
+        `f8ba41cae9af739e1bacb60a01b6586df0ef638a`,
+        {
+          entry: `testValidApplication`,
+          logo: {
+            filePath: [`path-to`, `valid`, `logo.txt`],
+            pixelArt: true,
+            backgroundColor: `Test Valid Background Color`,
+          },
+          application: {
+            name: {
+              long: `Test Valid Long Name`,
+              short: `Test Valid Short Name`,
+            },
+            description: `Test Valid Description`,
+            language: `Test Valid Language`,
+            version: `Test Valid Version`,
+            color: `Test Valid Color`,
+            appleStatusBarStyle: `blackTranslucent`,
+            display: `browser`,
+            orientation: `natural`,
+          },
+          developer: {
+            name: `Test Valid Developer Name`,
+            website: `https://test-developer.com/website`,
+          },
+        },
+      )
+
+      rejects(
+        `when the file path is an application which does not deserialize`,
+        `non-deserializable-app-file.application.json`,
+        plugins,
+        () => `Unexpected string in JSON at position 215`
+      )
+
+      rejects(
+        `when the file path is an application which has a missing logo`,
+        `app-file-with-missing-logo.application.json`,
+        plugins,
+        () => `ENOENT: no such file or directory, open '${path.join(`path-to`, `missing`, `logo.txt`)}'`,
+      )
+
+      rejects(
+        `when the file path is an application which has validation errors`,
+        `app-file-with-validation-errors.application.json`,
+        plugins,
+        filePath => `Application JSON "${filePath}" is not valid; the following errors were detected:
+\tinstance.logo.pixelArt - is not of a type(s) boolean
+\tinstance.application.name - requires property "long"
+\tinstance.application.display - is not one of enum values: standalone,fullScreen,minimalUi,browser`
+      )
+
+      rejects(
+        `when the file path is an application which has validation errors and a missing logo file`,
+        `app-file-with-validation-errors-and-missing-logo.application.json`,
+        plugins,
+        filePath => `Application JSON "${filePath}" is not valid; the following errors were detected:
+\tinstance.logo.pixelArt - is not of a type(s) boolean
+\tinstance.application.name - requires property "long"
+\tinstance.application.display - is not one of enum values: standalone,fullScreen,minimalUi,browser`
       )
     })
   })
