@@ -2,11 +2,13 @@
   "description": "Common helpers used by Woobly build tools.",
   "version": "0.0.11",
   "dependencies": {
+    "favicons": "5.3.0",
     "jsonschema": "1.2.4",
     "progress": "2.0.3",
     "typescript": "3.7.2"
   },
   "devDependencies": {
+    "@types/favicons": "5.3.2",
     "@types/progress": "2.0.3"
   }
 }
