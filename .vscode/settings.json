@@ -21,8 +21,14 @@
     "woobly/license": true,
     "woobly/package.json": true,
     "woobly/node_modules": true,
-    "**/*.js": true,
-    "**/*.d.ts": true
+    "@woobly/**/*.js": true,
+    "@woobly/**/*.d.ts": true,
+    "woobly/**/*.js": true,
+    "woobly/**/*.d.ts": true,
+    "build/**/*.js": true,
+    "build/**/*.d.ts": true,
+    "publish/**/*.js": true,
+    "publish/**/*.d.ts": true
   },
   "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
 }

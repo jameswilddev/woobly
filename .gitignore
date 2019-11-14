@@ -6,5 +6,11 @@
 /woobly/package.json
 /woobly/license
 /woobly/node_modules
-*.js
-*.d.ts
+@woobly/**/*.js
+@woobly/**/*.d.ts
+woobly/**/*.js
+woobly/**/*.d.ts
+build/**/*.js
+build/**/*.d.ts
+publish/**/*.js
+publish/**/*.d.t
