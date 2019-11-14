@@ -1,0 +1,18 @@
+{
+  "this is": [
+    "a",
+    "complex",
+    [
+      "json",
+      "file"
+    ]
+  ],
+  "which": null,
+  "should": 1,
+  "be": false,
+  "copied": true,
+  "without": {
+    "losing": "its",
+    "meaning": null
+  }
+}

@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://www.random.org/bytes/
+HostUrl=https://www.random.org/cgi-bin/randbyte?nbytes=500&format=f

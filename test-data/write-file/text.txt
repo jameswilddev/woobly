@@ -1,0 +1,1 @@
+This is a text file which should not be confused for JSON.

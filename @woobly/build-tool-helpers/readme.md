@@ -6,13 +6,16 @@ Common helpers used by Woobly build tools.
 
 This package has the following runtime dependencies:
 
-Name        | Version                                                                                            
------------ | ---------------------------------------------------------------------------------------------------
-favicons    | [![5.3.0](https://img.shields.io/npm/v/favicons.svg)](https://www.npmjs.com/package/favicons)      
-jsonschema  | [![1.2.4](https://img.shields.io/npm/v/jsonschema.svg)](https://www.npmjs.com/package/jsonschema)  
-progress    | [![2.0.3](https://img.shields.io/npm/v/progress.svg)](https://www.npmjs.com/package/progress)      
-shell-quote | [![1.7.2](https://img.shields.io/npm/v/shell-quote.svg)](https://www.npmjs.com/package/shell-quote)
-typescript  | [![3.7.2](https://img.shields.io/npm/v/typescript.svg)](https://www.npmjs.com/package/typescript)  
+Name          | Version                                                                                                
+------------- | -------------------------------------------------------------------------------------------------------
+favicons      | [![5.3.0](https://img.shields.io/npm/v/favicons.svg)](https://www.npmjs.com/package/favicons)          
+is-png        | [![2.0.0](https://img.shields.io/npm/v/is-png.svg)](https://www.npmjs.com/package/is-png)              
+jsonschema    | [![1.2.4](https://img.shields.io/npm/v/jsonschema.svg)](https://www.npmjs.com/package/jsonschema)      
+pngjs         | [![3.4.0](https://img.shields.io/npm/v/pngjs.svg)](https://www.npmjs.com/package/pngjs)                
+progress      | [![2.0.3](https://img.shields.io/npm/v/progress.svg)](https://www.npmjs.com/package/progress)          
+shell-quote   | [![1.7.2](https://img.shields.io/npm/v/shell-quote.svg)](https://www.npmjs.com/package/shell-quote)    
+typescript    | [![3.7.2](https://img.shields.io/npm/v/typescript.svg)](https://www.npmjs.com/package/typescript)      
+zopflipng-bin | [![5.0.0](https://img.shields.io/npm/v/zopflipng-bin.svg)](https://www.npmjs.com/package/zopflipng-bin)
 
 ## License
 
