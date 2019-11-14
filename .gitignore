@@ -13,4 +13,4 @@ woobly/**/*.d.ts
 build/**/*.js
 build/**/*.d.ts
 publish/**/*.js
-publish/**/*.d.t
+publish/**/*.d.ts
