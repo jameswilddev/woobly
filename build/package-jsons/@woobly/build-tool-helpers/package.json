@@ -3,7 +3,6 @@
   "version": "0.0.12",
   "dependencies": {
     "favicons": "5.3.0",
-    "is-png": "2.0.0",
     "jsonschema": "1.2.4",
     "pngjs": "3.4.0",
     "progress": "2.0.3",

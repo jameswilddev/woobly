@@ -1,6 +1,5 @@
 import * as fs from "fs"
 import * as path from "path"
-import isPng = require("is-png")
 import * as zopflipngBin from "zopflipng-bin"
 import shellExecute from "./shell-execute"
 
@@ -11,30 +10,19 @@ export default async function (
 ): Promise<void> {
   const joined = path.join.apply(path, filePath.slice())
 
-  if (!production) {
-    await fs.promises.writeFile(joined, buffer)
-  }
-
-  if (isPng(buffer)) {
+  if (production && joined.endsWith(`.png`)) {
     await fs.promises.writeFile(joined, buffer)
     await shellExecute(
       `zopfli compress PNG`,
       zopflipngBin,
       [`-m`, `--lossy_transparent`, `--lossy_8b`, joined],
     )
-
     return
   }
 
-  const text = buffer.toString()
-  let json: any = undefined
-
-  try {
-    json = JSON.parse(text)
-  } catch (e) {
-  }
-
-  if (json !== undefined) {
+  if (production && joined.endsWith(`.json`)) {
+    const text = buffer.toString()
+    const json = JSON.parse(text)
     await fs.promises.writeFile(joined, JSON.stringify(json))
     return
   }
