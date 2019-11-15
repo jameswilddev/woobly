@@ -100,7 +100,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 0
 \tStdout: "Test \\"standard\\" output"
 \tStderr: "Test \\"standard\\" error output"`,
@@ -113,7 +113,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 0
 \tStdout: ""
 \tStderr: "Test \\"standard\\" error output"`,
@@ -146,7 +146,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 3
 \tStdout: "Test \\"standard\\" output"
 \tStderr: "Test \\"standard\\" error output"`,
@@ -159,7 +159,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 3
 \tStdout: ""
 \tStderr: "Test \\"standard\\" error output"`,
@@ -174,7 +174,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 3
 \tStdout: "Test \\"standard\\" output"
 \tStderr: ""`,
@@ -187,7 +187,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             scriptPath => `Command-line execution failed;
 \tDescription: "Test \\"Description\\""
 \tCommand: "node"
-\tArgs: "${scriptPath}", "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
+\tArgs: ${JSON.stringify(scriptPath)}, "Test \\"Argument\\" A", "Test \\"Argument\\" B", "Test \\"Argument\\" C"
 \tExit code: 3
 \tStdout: ""
 \tStderr: ""`,
