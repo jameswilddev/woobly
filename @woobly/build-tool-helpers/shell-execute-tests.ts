@@ -56,14 +56,30 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       it(
         `uses the correct arguments`,
-        () => expect(reportedArguments)
-          .toEqual([
-            process.argv[0],
-            path.join(process.cwd(), scriptPath),
-            `Test "Argument" A`,
-            `Test "Argument" B`,
-            `Test "Argument" C`,
-          ])
+        () => {
+          if (process.platform === "win32") {
+            expect([
+              reportedArguments[0].toLowerCase(),
+              reportedArguments[1].toLowerCase(),
+            ].concat(reportedArguments.slice(2)))
+              .toEqual([
+                process.argv[0].toLowerCase(),
+                path.join(process.cwd(), scriptPath).toLowerCase(),
+                `Test "Argument" A`,
+                `Test "Argument" B`,
+                `Test "Argument" C`,
+              ])
+          } else {
+            expect(reportedArguments)
+              .toEqual([
+                process.argv[0],
+                path.join(process.cwd(), scriptPath),
+                `Test "Argument" A`,
+                `Test "Argument" B`,
+                `Test "Argument" C`,
+              ])
+          }
+        }
       )
     }
 
