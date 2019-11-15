@@ -1,5 +1,4 @@
 import * as childProcess from "child_process"
-import * as shellQuote from "shell-quote"
 
 export default function (
   description: string,
@@ -9,10 +8,10 @@ export default function (
   return new Promise<string>((resolve, reject) => {
     const process = childProcess.spawn(
       command,
-      [shellQuote.quote(args.slice())],
+      args,
       {
-        shell: true
-      }
+        shell: false,
+      },
     )
 
     let stdout = ``
