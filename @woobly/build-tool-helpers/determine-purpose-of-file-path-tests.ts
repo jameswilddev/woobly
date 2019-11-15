@@ -105,7 +105,7 @@ describe(`@woobly/build-tool-helpers`, () => {
       )
     }
 
-    function rejects(
+    function rejectsWithMessage(
       description: string,
       filePath: string,
       plugins: { readonly [fileExtension: string]: string },
@@ -116,9 +116,27 @@ describe(`@woobly/build-tool-helpers`, () => {
         filePath,
         filePath => {
           it(
-            `resolves including the type, file path, plugin and sha1`,
+            `rejects with the expected message`,
             () => expectAsync(determinePurposeOfFilePath(plugins, filePath))
               .toBeRejectedWith(new Error(messageFactory(filePath)))
+          )
+        }
+      )
+    }
+
+    function rejects(
+      description: string,
+      filePath: string,
+      plugins: { readonly [fileExtension: string]: string },
+    ): void {
+      scenario(
+        description,
+        filePath,
+        filePath => {
+          it(
+            `rejects`,
+            () => expectAsync(determinePurposeOfFilePath(plugins, filePath))
+              .toBeRejected()
           )
         }
       )
@@ -137,14 +155,14 @@ describe(`@woobly/build-tool-helpers`, () => {
         {},
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is not a TypeScript file and is not a valid content path`,
         `not-a-type-script-file-and-not-a-valid-content-path!.test-unimplemented-file-extension`,
         {},
         filePath => `Unable to determine the purpose of file "${filePath}".  If this is intended to be content, please ensure that it is of the form described in the documentation.`,
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is a valid content path`,
         `content-file-with-unimplemented-extension.test-unimplemented-file-extension`,
         {},
@@ -185,14 +203,14 @@ describe(`@woobly/build-tool-helpers`, () => {
         },
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which does not deserialize`,
         `non-deserializable-app-file.application.json`,
         {},
         () => `Unexpected string in JSON at position 215`
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which has validation errors`,
         `app-file-with-validation-errors.application.json`,
         {},
@@ -206,10 +224,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         `when the file path is an application which has a missing logo`,
         `app-file-with-missing-logo.application.json`,
         {},
-        () => `ENOENT: no such file or directory, open '${path.join(`path-to`, `missing`, `logo.txt`)}'`,
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which has validation errors and a missing logo file`,
         `app-file-with-validation-errors-and-missing-logo.application.json`,
         {},
@@ -240,14 +257,14 @@ describe(`@woobly/build-tool-helpers`, () => {
         plugins,
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is not a TypeScript file and is not a valid content path`,
         `not-a-type-script-file-and-not-a-valid-content-path!.test-unimplemented-file-extension`,
         plugins,
         filePath => `Unable to determine the purpose of file "${filePath}".  If this is intended to be content, please ensure that it is of the form described in the documentation.`,
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is a valid content path but no plugin handles its file extension`,
         `content-file-with-unimplemented-extension.test-unimplemented-file-extension`,
         plugins,
@@ -297,7 +314,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         },
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which does not deserialize`,
         `non-deserializable-app-file.application.json`,
         plugins,
@@ -308,10 +325,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         `when the file path is an application which has a missing logo`,
         `app-file-with-missing-logo.application.json`,
         plugins,
-        () => `ENOENT: no such file or directory, open '${path.join(`path-to`, `missing`, `logo.txt`)}'`,
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which has validation errors`,
         `app-file-with-validation-errors.application.json`,
         plugins,
@@ -321,7 +337,7 @@ describe(`@woobly/build-tool-helpers`, () => {
 \tinstance.application.display - is not one of enum values: standalone,fullScreen,minimalUi,browser`
       )
 
-      rejects(
+      rejectsWithMessage(
         `when the file path is an application which has validation errors and a missing logo file`,
         `app-file-with-validation-errors-and-missing-logo.application.json`,
         plugins,
