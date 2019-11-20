@@ -1,4 +1,6 @@
-export default class CriticalSection {
+import ICriticalSection from "./i-critical-section"
+
+export default class CriticalSection implements ICriticalSection {
   private executing = false
   private queued: null | {
     callback(): Promise<void>
