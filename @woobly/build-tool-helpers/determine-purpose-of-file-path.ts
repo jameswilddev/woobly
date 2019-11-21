@@ -6,6 +6,10 @@ export default function (
   filePath: string,
 ):
   | {
+    readonly type: `invalid`
+    readonly reason: string
+  }
+  | {
     readonly type: `typeScript`
     readonly filePath: string
   }
@@ -36,7 +40,10 @@ export default function (
   const contentDetails = tryToFindContentDetailsFromFilePath(filePath)
 
   if (contentDetails === null) {
-    throw new Error(`Unable to determine the purpose of file "${filePath}".  If this is intended to be content, please ensure that it is of the form described in the documentation.`)
+    return {
+      type: `invalid`,
+      reason: `Unable to determine the purpose of file "${filePath}".  If this is intended to be content, please ensure that it is of the form described in the documentation.`,
+    }
   }
 
   if (!Object.prototype.hasOwnProperty.call(plugins, contentDetails.fileExtension)) {
@@ -53,7 +60,10 @@ export default function (
       pluginFileExtensionList = `There are no plugins installed`
     }
 
-    throw new Error(`No installed plugin handles files with the extension "${contentDetails.fileExtension}" (from file "${filePath}").  Please ensure that the required plugin is installed, and that this file's extension is correct.  ${pluginFileExtensionList}; execute "npm install --save-dev {plugin name}" to install plugins.`)
+    return {
+      type: `invalid`,
+      reason: `No installed plugin handles files with the extension "${contentDetails.fileExtension}" (from file "${filePath}").  Please ensure that the required plugin is installed, and that this file's extension is correct.  ${pluginFileExtensionList}; execute "npm install --save-dev {plugin name}" to install plugins.`,
+    }
   }
 
   return {
