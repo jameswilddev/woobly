@@ -6,6 +6,18 @@ export { default as filePathShouldBeProcessed } from "./file-path-should-be-proc
 
 export { default as searchForPlugins } from "./search-for-plugins"
 
+export { default as MapOne } from "./map-one"
+
+export { default as InvalidFilePath } from "./invalid-file-path"
+
+export { default as TypeScriptFilePath } from "./type-script-file-path"
+
+export { default as ContentFilePath } from "./content-file-path"
+
+export { default as ApplicationFilePath } from "./application-file-path"
+
+export { default as FilePath } from "./file-path"
+
 export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
 
 export { default as mapProgress } from "./map-progress"

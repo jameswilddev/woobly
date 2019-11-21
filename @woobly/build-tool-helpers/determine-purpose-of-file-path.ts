@@ -1,28 +1,12 @@
 import * as path from "path"
 import tryToFindContentDetailsFromFilePath from "./try-to-find-content-details-from-file-path"
+import MapOne from "./map-one"
+import FilePath from "./file-path"
 
 export default function (
   plugins: { readonly [fileExtension: string]: string },
   filePath: string,
-):
-  | {
-    readonly type: `invalid`
-    readonly reason: string
-  }
-  | {
-    readonly type: `typeScript`
-    readonly filePath: string
-  }
-  | {
-    readonly type: `content`
-    readonly filePath: string
-    readonly plugin: string
-    readonly typeScriptIdentifier: string
-  }
-  | {
-    readonly type: `application`
-    readonly filePath: ReadonlyArray<string>
-  } {
+): MapOne<FilePath> {
   if (filePath.endsWith(`.ts`)) {
     return {
       type: `typeScript`,
