@@ -1,14 +1,10 @@
-import * as fs from "fs"
 import * as path from "path"
-import * as jsonschema from "jsonschema"
-import applicationJsonSchema from "./application-json-schema"
 import tryToFindContentDetailsFromFilePath from "./try-to-find-content-details-from-file-path"
-import sha1File from "./sha1-file"
 
-export default async function (
+export default function (
   plugins: { readonly [fileExtension: string]: string },
   filePath: string,
-): Promise<
+):
   | {
     readonly type: `typeScript`
     readonly filePath: string
@@ -18,40 +14,11 @@ export default async function (
     readonly filePath: string
     readonly plugin: string
     readonly typeScriptIdentifier: string
-    readonly sha1: string
   }
   | {
     readonly type: `application`
     readonly filePath: ReadonlyArray<string>
-    readonly sha1: string
-    readonly logoSha1: string
-    readonly json: {
-      readonly entry: string
-      readonly logo: {
-        readonly filePath: ReadonlyArray<string>
-        readonly pixelArt: boolean
-        readonly backgroundColor: string
-      }
-      readonly application: {
-        readonly name: {
-          readonly long: string
-          readonly short: string
-        }
-        readonly description: string
-        readonly language: string
-        readonly version: string
-        readonly color: string
-        readonly appleStatusBarStyle: `default` | `black` | `blackTranslucent`
-        readonly display: `standalone` | `fullScreen` | `minimalUi` | `browser`
-        readonly orientation: `any` | `natural` | `portrait` | `landscape`
-      }
-      readonly developer: {
-        readonly name: string
-        readonly website: string
-      }
-    }
-  }
-> {
+  } {
   if (filePath.endsWith(`.ts`)) {
     return {
       type: `typeScript`,
@@ -60,24 +27,9 @@ export default async function (
   }
 
   if (filePath.endsWith(`.application.json`)) {
-    const text = await fs.promises.readFile(filePath, `utf8`)
-    const json = JSON.parse(text)
-    const validation = jsonschema.validate(json, applicationJsonSchema)
-
-    if (!validation.valid) {
-      const errors = validation
-        .errors
-        .map(e => `\n\t${e.property} - ${e.message}`)
-        .join(``)
-      throw new Error(`Application JSON "${filePath}" is not valid; the following errors were detected:${errors}`)
-    }
-
     return {
       type: `application`,
       filePath: filePath.slice(3 + path.sep.length, -17).split(path.sep),
-      sha1: await sha1File(filePath),
-      logoSha1: await sha1File(path.join.apply(path, json.logo.filePath)),
-      json,
     }
   }
 
@@ -109,6 +61,5 @@ export default async function (
     filePath,
     plugin: plugins[contentDetails.fileExtension],
     typeScriptIdentifier: contentDetails.typeScriptIdentifier,
-    sha1: await sha1File(filePath),
   }
 }
