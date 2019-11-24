@@ -1,27 +1,10 @@
-import CriticalSection from "./critical-section"
+import DisposableBase from "./disposable-base"
 
-export default abstract class InvalidatableBase {
-  private readonly criticalSection = new CriticalSection()
-
-  async initialize(): Promise<void> {
-    await this.criticalSection.execute(async () => {
-      await this.generate()
-    })
-  }
-
+export default abstract class InvalidatableBase extends DisposableBase {
   async invalidate(): Promise<void> {
     await this.criticalSection.execute(async () => {
       await this.cleanUp()
       await this.generate()
     })
   }
-
-  async dispose(): Promise<void> {
-    await this.criticalSection.execute(async () => {
-      await this.cleanUp()
-    })
-  }
-
-  abstract generate(): Promise<void>
-  abstract cleanUp(): Promise<void>
 }
