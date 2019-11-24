@@ -18,6 +18,8 @@ export { default as ContentFilePath } from "./content-file-path"
 
 export { default as ApplicationFilePath } from "./application-file-path"
 
+export { default as Application } from "./application"
+
 export { default as FilePath } from "./file-path"
 
 export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
