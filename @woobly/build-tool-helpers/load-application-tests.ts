@@ -66,7 +66,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         () => expectAsync(loadApplication({
           filePath: [`subdirectory-a`, `subdirectory-b`, `non-deserializable-app-file`],
         })).toBeRejectedWithError(
-          `Unexpected string in JSON at position 169`,
+          /^Unexpected string in JSON at position \d+$/,
         ),
       ),
     )
