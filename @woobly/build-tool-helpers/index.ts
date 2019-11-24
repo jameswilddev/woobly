@@ -21,3 +21,5 @@ export { default as FilePath } from "./file-path"
 export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
 
 export { default as mapProgress } from "./map-progress"
+
+export { default as filterProgress } from "./filter-progress"
