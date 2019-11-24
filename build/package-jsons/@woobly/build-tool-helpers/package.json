@@ -1,6 +1,6 @@
 {
   "description": "Common helpers used by Woobly build tools.",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "dependencies": {
     "favicons": "5.3.0",
     "jsonschema": "1.2.4",
