@@ -1,4 +1,5 @@
 import * as favicons from "favicons"
+import Application from "./application"
 
 function convertAppleStatusBarStyle(
   fromJson: `default` | `black` | `blackTranslucent`,
@@ -35,30 +36,7 @@ function convertOrientation(
 }
 
 export default function (
-  json: {
-    readonly logo: {
-      readonly filePath: ReadonlyArray<string>
-      readonly pixelArt: boolean
-      readonly backgroundColor: string
-    }
-    readonly application: {
-      readonly name: {
-        readonly long: string
-        readonly short: string
-      }
-      readonly description: string
-      readonly language: string
-      readonly version: string
-      readonly color: string
-      readonly appleStatusBarStyle: `default` | `black` | `blackTranslucent`
-      readonly display: `standalone` | `fullScreen` | `minimalUi` | `browser`
-      readonly orientation: `any` | `natural` | `portrait` | `landscape`
-    }
-    readonly developer: {
-      readonly name: string
-      readonly website: string
-    }
-  },
+  application: Application,
   production: boolean,
 ): favicons.Configuration & {
   readonly appShortName: string
@@ -66,19 +44,19 @@ export default function (
   readonly loadManifestWithCredentials: boolean
 } {
   return {
-    appName: json.application.name.long,
-    appShortName: json.application.name.short,
-    appDescription: json.application.description,
-    developerName: json.developer.name,
-    developerURL: json.developer.website,
-    lang: json.application.language,
-    background: json.logo.backgroundColor,
-    theme_color: json.application.color,
-    appleStatusBarStyle: convertAppleStatusBarStyle(json.application.appleStatusBarStyle),
-    display: convertDisplay(json.application.display),
-    orientation: convertOrientation(json.application.orientation),
-    version: json.application.version,
-    pixel_art: json.logo.pixelArt,
+    appName: application.application.name.long,
+    appShortName: application.application.name.short,
+    appDescription: application.application.description,
+    developerName: application.developer.name,
+    developerURL: application.developer.website,
+    lang: application.application.language,
+    background: application.logo.backgroundColor,
+    theme_color: application.application.color,
+    appleStatusBarStyle: convertAppleStatusBarStyle(application.application.appleStatusBarStyle),
+    display: convertDisplay(application.application.display),
+    orientation: convertOrientation(application.application.orientation),
+    version: application.application.version,
+    pixel_art: application.logo.pixelArt,
     path: ``,
     dir: `auto`,
     start_url: ``,

@@ -19,7 +19,7 @@ describe(`@woobly/build-tool-helpers`, () => {
       ) => void,
     ): void {
       it(description, () => {
-        const input = {
+        const application = {
           logo: {
             filePath: [`test`, `file`, `path`],
             pixelArt,
@@ -44,7 +44,7 @@ describe(`@woobly/build-tool-helpers`, () => {
           },
         }
 
-        const output = generateFaviconsConfiguration(input, production)
+        const output = generateFaviconsConfiguration(application, production)
 
         assert(output)
       })
