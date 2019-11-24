@@ -80,33 +80,6 @@ describe(`@woobly/build-tool-helpers`, () => {
       callback(`an empty object`, {})
     }
 
-    function forEachNonIdentifier(
-      callback: (
-        description: string,
-        value: any,
-      ) => void
-    ): void {
-      callback(`lone digit`, `6`)
-      callback(`digits`, `62`)
-      callback(`digit then letter`, `6e`)
-      callback(`digit then underscore`, `6_`)
-      callback(`digit`, `6$`)
-      callback(`invalid symbol`, `%`)
-      callback(`invalid symbol in otherwise fine identifier`, `abc%eeee`)
-    }
-
-    function forEachIdentifier(
-      callback: (
-        description: string,
-        value: any,
-      ) => void
-    ): void {
-      callback(`lone lower case`, `e`)
-      callback(`lone upper case`, `E`)
-      callback(`lone underscore`, `_`)
-      callback(`lone $`, `$`)
-    }
-
     function accepts(
       description: string,
       value: any,
@@ -147,8 +120,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       )
     }
-
-    const validEntry = `testValid_$1234Entry`
 
     const validLogoBackgroundColor = `Test Valid Logo Background Color`
 
@@ -196,7 +167,6 @@ describe(`@woobly/build-tool-helpers`, () => {
     }
 
     accepts(`valid`, {
-      entry: validEntry,
       logo: validLogo,
       application: validApplication,
       developer: validDeveloper,
@@ -204,51 +174,13 @@ describe(`@woobly/build-tool-helpers`, () => {
 
     forEachNonObject((description, value) => rejects(description, value, `instance`, `is not of a type(s) object`))
 
-    describe(`entry`, () => {
-      forEachIdentifier((description, entry) => accepts(description, {
-        entry,
-        logo: validLogo,
-        application: validApplication,
-        developer: validDeveloper,
-      }))
-
-      rejects(`missing`, {
-        logo: validLogo,
-        application: validApplication,
-        developer: validDeveloper,
-      }, `instance`, `requires property "entry"`)
-
-      forEachNonString((description, entry) => rejects(description, {
-        entry,
-        logo: validLogo,
-        application: validApplication,
-        developer: validDeveloper,
-      }, `instance.entry`, `is not of a type(s) string`))
-
-      rejects(`empty`, {
-        entry: ``,
-        logo: validLogo,
-        application: validApplication,
-        developer: validDeveloper,
-      }, `instance.entry`, `does not meet minimum length of 1`)
-
-      forEachNonIdentifier((description, entry) => rejects(description, {
-        entry,
-        logo: validLogo,
-        application: validApplication,
-        developer: validDeveloper,
-      }, `instance.entry`, `does not match pattern "^$|^[A-Za-z_$][A-Za-z_$0-9]*$"`))
-    })
-
     describe(`logo`, () => {
       rejects(`missing`, {
-        entry: validEntry,
         application: validApplication,
         developer: validDeveloper,
       }, `instance`, `requires property "logo"`)
 
       forEachNonObject((description, logo) => rejects(description, {
-        entry: validEntry,
         logo,
         application: validApplication,
         developer: validDeveloper,
@@ -256,7 +188,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`filePath`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: {
             pixelArt: true,
             backgroundColor: validLogoBackgroundColor,
@@ -266,7 +197,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo`, `requires property "filePath"`)
 
         forEachNonArray((description, filePath) => rejects(description, {
-          entry: validEntry,
           logo: {
             filePath,
             pixelArt: true,
@@ -277,7 +207,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.filePath`, `is not of a type(s) array`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: {
             filePath: [],
             pixelArt: true,
@@ -288,7 +217,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.filePath`, `does not meet minimum length of 1`)
 
         forEachNonString((description, item) => rejects(description, {
-          entry: validEntry,
           logo: {
             filePath: [`Test Item A`, `Test Item B`, item, `Test Item C`],
             pixelArt: true,
@@ -299,7 +227,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.filePath[2]`, `is not of a type(s) string`))
 
         rejects(`item empty`, {
-          entry: validEntry,
           logo: {
             filePath: [`Test Item A`, `Test Item B`, ``, `Test Item C`],
             pixelArt: true,
@@ -310,7 +237,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.filePath[2]`, `does not match pattern "\\\\S"`)
 
         rejects(`item white space`, {
-          entry: validEntry,
           logo: {
             filePath: [`Test Item A`, `Test Item B`, `    \n  \r   \t   `, `Test Item C`],
             pixelArt: true,
@@ -323,7 +249,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`pixelArt`, () => {
         accepts(`false`, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt: false,
@@ -334,7 +259,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         })
 
         rejects(`missing`, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             backgroundColor: validLogoBackgroundColor,
@@ -344,7 +268,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo`, `requires property "pixelArt"`)
 
         forEachNonBoolean((description, pixelArt) => rejects(description, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt,
@@ -357,7 +280,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`backgroundColor`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt: true,
@@ -367,7 +289,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo`, `requires property "backgroundColor"`)
 
         forEachNonString((description, backgroundColor) => rejects(description, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt: true,
@@ -378,7 +299,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.backgroundColor`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt: true,
@@ -389,7 +309,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.logo.backgroundColor`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: {
             filePath: validLogoFilePath,
             pixelArt: true,
@@ -403,13 +322,11 @@ describe(`@woobly/build-tool-helpers`, () => {
 
     describe(`application`, () => {
       rejects(`missing`, {
-        entry: validEntry,
         logo: validLogo,
         developer: validDeveloper,
       }, `instance`, `requires property "application"`)
 
       forEachNonObject((description, application) => rejects(description, {
-        entry: validEntry,
         logo: validLogo,
         application,
         developer: validDeveloper,
@@ -417,7 +334,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`name`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             description: validApplicationDescription,
@@ -432,7 +348,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "name"`)
 
         forEachNonObject((description, name) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name,
@@ -449,7 +364,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         describe(`short`, () => {
           rejects(`missing`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -467,7 +381,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name`, `requires property "short"`)
 
           forEachNonString((description, short) => rejects(description, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -486,7 +399,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name.short`, `is not of a type(s) string`))
 
           rejects(`empty`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -505,7 +417,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name.short`, `does not match pattern "\\\\S"`)
 
           rejects(`white space`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -526,7 +437,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         describe(`long`, () => {
           rejects(`missing`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -544,7 +454,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name`, `requires property "long"`)
 
           forEachNonString((description, long) => rejects(description, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -563,7 +472,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name.long`, `is not of a type(s) string`))
 
           rejects(`empty`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -582,7 +490,6 @@ describe(`@woobly/build-tool-helpers`, () => {
           }, `instance.application.name.long`, `does not match pattern "\\\\S"`)
 
           rejects(`white space`, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: {
@@ -604,7 +511,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`description`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -619,7 +525,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "description"`)
 
         forEachNonString((testDescription, description) => rejects(testDescription, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -635,7 +540,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.description`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -651,7 +555,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.description`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -669,7 +572,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`language`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -684,7 +586,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "language"`)
 
         forEachNonString((description, language) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -700,7 +601,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.language`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -716,7 +616,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.language`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -734,7 +633,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`version`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -749,7 +647,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "version"`)
 
         forEachNonString((description, version) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -765,7 +662,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.version`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -781,7 +677,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.version`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -799,7 +694,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`color`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -814,7 +708,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "color"`)
 
         forEachNonString((description, color) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -830,7 +723,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.color`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -846,7 +738,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.color`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -865,7 +756,6 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`appleStatusBarStyle`, () => {
         for (const appleStatusBarStyle of [`default`, `blackTranslucent`]) {
           accepts(appleStatusBarStyle, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: validApplicationName,
@@ -882,7 +772,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
 
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -897,7 +786,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "appleStatusBarStyle"`)
 
         forEachNonString((description, appleStatusBarStyle) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -913,7 +801,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.appleStatusBarStyle`, `is not one of enum values: default,black,blackTranslucent`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -929,7 +816,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.appleStatusBarStyle`, `is not one of enum values: default,black,blackTranslucent`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -945,7 +831,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.appleStatusBarStyle`, `is not one of enum values: default,black,blackTranslucent`)
 
         rejects(`unexpected string`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -964,7 +849,6 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`display`, () => {
         for (const display of [`standalone`, `fullScreen`, `browser`]) {
           accepts(display, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: validApplicationName,
@@ -981,7 +865,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
 
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -996,7 +879,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "display"`)
 
         forEachNonString((description, display) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1012,7 +894,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.display`, `is not one of enum values: standalone,fullScreen,minimalUi,browser`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1028,7 +909,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.display`, `is not one of enum values: standalone,fullScreen,minimalUi,browser`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1044,7 +924,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.display`, `is not one of enum values: standalone,fullScreen,minimalUi,browser`)
 
         rejects(`unexpected string`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1063,7 +942,6 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`orientation`, () => {
         for (const orientation of [`any`, `natural`, `landscape`]) {
           accepts(orientation, {
-            entry: validEntry,
             logo: validLogo,
             application: {
               name: validApplicationName,
@@ -1080,7 +958,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
 
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1095,7 +972,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application`, `requires property "orientation"`)
 
         forEachNonString((description, orientation) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1111,7 +987,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.orientation`, `is not one of enum values: any,natural,portrait,landscape`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1127,7 +1002,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.orientation`, `is not one of enum values: any,natural,portrait,landscape`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1143,7 +1017,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.application.orientation`, `is not one of enum values: any,natural,portrait,landscape`)
 
         rejects(`unexpected string`, {
-          entry: validEntry,
           logo: validLogo,
           application: {
             name: validApplicationName,
@@ -1162,13 +1035,11 @@ describe(`@woobly/build-tool-helpers`, () => {
 
     describe(`developer`, () => {
       rejects(`missing`, {
-        entry: validEntry,
         logo: validLogo,
         application: validApplication,
       }, `instance`, `requires property "developer"`)
 
       forEachNonObject((description, developer) => rejects(description, {
-        entry: validEntry,
         logo: validLogo,
         application: validApplication,
         developer,
@@ -1176,7 +1047,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`name`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1185,7 +1055,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer`, `requires property "name"`)
 
         forEachNonString((description, name) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1195,7 +1064,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer.name`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1205,7 +1073,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer.name`, `does not match pattern "\\\\S"`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1217,7 +1084,6 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       describe(`website`, () => {
         rejects(`missing`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1226,7 +1092,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer`, `requires property "website"`)
 
         forEachNonString((description, website) => rejects(description, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1236,7 +1101,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer.website`, `is not of a type(s) string`))
 
         rejects(`empty`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1246,7 +1110,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer.website`, `does not conform to the "uri" format`)
 
         rejects(`white space`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
@@ -1256,7 +1119,6 @@ describe(`@woobly/build-tool-helpers`, () => {
         }, `instance.developer.website`, `does not conform to the "uri" format`)
 
         rejects(`non-url`, {
-          entry: validEntry,
           logo: validLogo,
           application: validApplication,
           developer: {
