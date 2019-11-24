@@ -1,4 +1,4 @@
-import InvalidatableBase from "./invalidatable-base"
+import { InvalidatableBase } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`invalidatableBase`, () => {

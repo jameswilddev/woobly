@@ -1,4 +1,4 @@
-import DisposableBase from "./disposable-base"
+import { DisposableBase } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`disposableBase`, () => {
