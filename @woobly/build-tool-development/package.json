@@ -1,0 +1,26 @@
+{
+  "name": "@woobly/build-tool-development",
+  "description": "Command-line tool to perform a development build of a Woobly application.",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "engineStrict": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "!**/*-tests.*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jameswilddev/woobly"
+  },
+  "license": "MIT",
+  "bin": {
+    "woobly-build-tool-development": "./index.js"
+  }
+}
