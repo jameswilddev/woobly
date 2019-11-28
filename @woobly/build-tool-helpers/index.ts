@@ -33,3 +33,5 @@ export { default as loadApplication } from "./load-application"
 export { default as DisposableBase } from "./disposable-base"
 
 export { default as InvalidatableBase } from "./invalidatable-base"
+
+export { default as initializePersistentCache } from "./initialize-persistent-cache"
