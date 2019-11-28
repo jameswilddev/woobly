@@ -4,17 +4,11 @@ const schema: jsonschema.Schema = {
   type: `object`,
   additionalProperties: false,
   required: [
-    `entry`,
     `logo`,
     `application`,
     `developer`,
   ],
   properties: {
-    entry: {
-      type: `string`,
-      minLength: 1,
-      pattern: `^$|^[A-Za-z_$][A-Za-z_$0-9]*$`,
-    },
     logo: {
       type: `object`,
       additionalProperties: false,

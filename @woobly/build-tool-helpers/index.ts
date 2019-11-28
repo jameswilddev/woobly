@@ -18,6 +18,8 @@ export { default as ContentFilePath } from "./content-file-path"
 
 export { default as ApplicationFilePath } from "./application-file-path"
 
+export { default as Application } from "./application"
+
 export { default as FilePath } from "./file-path"
 
 export { default as determinePurposeOfFilePath } from "./determine-purpose-of-file-path"
@@ -25,3 +27,9 @@ export { default as determinePurposeOfFilePath } from "./determine-purpose-of-fi
 export { default as mapProgress } from "./map-progress"
 
 export { default as filterProgress } from "./filter-progress"
+
+export { default as loadApplication } from "./load-application"
+
+export { default as DisposableBase } from "./disposable-base"
+
+export { default as InvalidatableBase } from "./invalidatable-base"

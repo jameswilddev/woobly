@@ -1,18 +1,18 @@
-import { InvalidatableBase } from "./index"
+import { DisposableBase } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
-  describe(`invalidatableBase`, () => {
+  describe(`disposableBase`, () => {
     let generateResolve: () => void
     let generateReject: (reason: any) => void
     let generate: jasmine.Spy
     let cleanUpResolve: () => void
     let cleanUpReject: (reason: any) => void
     let cleanUp: jasmine.Spy
-    let invalidatable: InvalidatableBase
+    let invalidatable: DisposableBase
     let returnedPromise: Promise<void>
     let resolvedPromise: boolean
 
-    class InvalidatableMock extends InvalidatableBase {
+    class InvalidatableMock extends DisposableBase {
       generate() {
         generate()
         return new Promise<void>((resolve, reject) => {
@@ -45,9 +45,41 @@ describe(`@woobly/build-tool-helpers`, () => {
       it(`does not call cleanUp`, () => expect(cleanUp).not.toHaveBeenCalled())
     })
 
-    describe(`when invalidate is called`, () => {
+    describe(`when initialize is called`, () => {
       beforeEach(done => {
-        returnedPromise = invalidatable.invalidate()
+        returnedPromise = invalidatable.initialize()
+        returnedPromise.then(
+          () => { resolvedPromise = true },
+          () => { resolvedPromise = true },
+        )
+        setTimeout(done, delay)
+      })
+      it(`calls generate once`, () => expect(generate).toHaveBeenCalledTimes(1))
+      it(`does not call cleanUp`, () => expect(cleanUp).not.toHaveBeenCalled())
+      it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalsy())
+      describe(`when generate resolves`, () => {
+        beforeEach(done => {
+          generateResolve()
+          setTimeout(done, delay)
+        })
+        it(`does not call generate again`, () => expect(generate).toHaveBeenCalledTimes(1))
+        it(`does not call cleanUp`, () => expect(cleanUp).not.toHaveBeenCalled())
+        it(`resolves the returned promise`, () => expectAsync(returnedPromise).toBeResolved())
+      })
+      describe(`when generate rejects`, () => {
+        beforeEach(done => {
+          generateReject(`Test Reason`)
+          setTimeout(done, delay)
+        })
+        it(`does not call generate again`, () => expect(generate).toHaveBeenCalledTimes(1))
+        it(`does not call cleanUp`, () => expect(cleanUp).not.toHaveBeenCalled())
+        it(`rejects the returned promise`, () => expectAsync(returnedPromise).toBeRejectedWith(`Test Reason`))
+      })
+    })
+
+    describe(`when dispose is called`, () => {
+      beforeEach(done => {
+        returnedPromise = invalidatable.dispose()
         returnedPromise.then(
           () => { resolvedPromise = true },
           () => { resolvedPromise = true },
@@ -62,27 +94,9 @@ describe(`@woobly/build-tool-helpers`, () => {
           cleanUpResolve()
           setTimeout(done, delay)
         })
-        it(`calls generate once`, () => expect(generate).toHaveBeenCalledTimes(1))
+        it(`does not call generate`, () => expect(generate).not.toHaveBeenCalled())
         it(`does not call cleanUp again`, () => expect(cleanUp).toHaveBeenCalledTimes(1))
-        it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalsy())
-        describe(`when generate resolves`, () => {
-          beforeEach(done => {
-            generateResolve()
-            setTimeout(done, delay)
-          })
-          it(`does not call generate again`, () => expect(generate).toHaveBeenCalledTimes(1))
-          it(`does not call cleanUp again`, () => expect(cleanUp).toHaveBeenCalledTimes(1))
-          it(`resolves the returned promise`, () => expectAsync(returnedPromise).toBeResolved())
-        })
-        describe(`when generate rejects`, () => {
-          beforeEach(done => {
-            generateReject(`Test Reason`)
-            setTimeout(done, delay)
-          })
-          it(`does not call generate again`, () => expect(generate).toHaveBeenCalledTimes(1))
-          it(`does not call cleanUp again`, () => expect(cleanUp).toHaveBeenCalledTimes(1))
-          it(`rejects the returned promise`, () => expectAsync(returnedPromise).toBeRejectedWith(`Test Reason`))
-        })
+        it(`resolves the returned promise`, () => expectAsync(returnedPromise).toBeResolved())
       })
       describe(`when cleanUp rejects`, () => {
         beforeEach(done => {

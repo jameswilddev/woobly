@@ -33,12 +33,6 @@ Every file ending with \`.application.json\` in the \`src\` directory is built
 as an application.  These JSON files describe how the application should be
 assembled:
 
-### \`entry\`
-
-The name of the TypeScript function to call to start the application.  This
-needs to be idempotent as some environments may call it multiple times to apply
-code changes without reloading the entire application.
-
 ### \`logo\`
 
 #### \`filePath\`

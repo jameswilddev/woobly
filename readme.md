@@ -27,12 +27,6 @@ Every file ending with `.application.json` in the `src` directory is built
 as an application.  These JSON files describe how the application should be
 assembled:
 
-### `entry`
-
-The name of the TypeScript function to call to start the application.  This
-needs to be idempotent as some environments may call it multiple times to apply
-code changes without reloading the entire application.
-
 ### `logo`
 
 #### `filePath`
@@ -187,7 +181,7 @@ match it to files:
 
 Name                                                     | Version                                                                                                                            | Description                                                            
 -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -----------------------------------------------------------------------
-[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.17](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
+[@woobly/build-tool-helpers](@woobly/build-tool-helpers) | [![0.0.21](https://img.shields.io/npm/v/@woobly/build-tool-helpers.svg)](https://www.npmjs.com/package/@woobly/build-tool-helpers) | Common helpers used by Woobly build tools.                             
 [@woobly/plugin-helpers](@woobly/plugin-helpers)         | [![0.0.0](https://img.shields.io/npm/v/@woobly/plugin-helpers.svg)](https://www.npmjs.com/package/@woobly/plugin-helpers)          | Common helpers used by Woobly plugins.                                 
 [woobly](woobly)                                         | [![0.0.4](https://img.shields.io/npm/v/woobly.svg)](https://www.npmjs.com/package/woobly)                                          | This is a stub package.  You probably want a @woobly/* package instead.
 
