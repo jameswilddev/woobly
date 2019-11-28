@@ -1,6 +1,25 @@
 {
+  "name": "@woobly/build-tool-helpers",
   "description": "Common helpers used by Woobly build tools.",
   "version": "0.0.17",
+  "engines": {
+    "node": ">=12.13.0"
+  },
+  "engineStrict": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "!**/*-tests.*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jameswilddev/woobly"
+  },
+  "license": "MIT",
   "dependencies": {
     "favicons": "5.3.0",
     "jsonschema": "1.2.4",
@@ -14,5 +33,6 @@
     "@types/pngjs": "3.4.0",
     "@types/progress": "2.0.3",
     "@types/zopflipng-bin": "4.1.0"
-  }
+  },
+  "types": "index.d.ts"
 }

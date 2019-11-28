@@ -1,9 +1,7 @@
 /.nyc_output
 /node_modules
-/@woobly/*/package.json
 /@woobly/*/license
 /@woobly/*/node_modules
-/woobly/package.json
 /woobly/license
 /woobly/node_modules
 @woobly/**/*.js
