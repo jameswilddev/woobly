@@ -1,7 +1,7 @@
-import { mapProgress } from "./index"
+import { mapArrayArray } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
-  describe(`mapProgress`, () => {
+  describe(`mapArrayArray`, () => {
     const callback = jasmine
       .createSpy(`callback`)
       .and
@@ -26,7 +26,7 @@ describe(`@woobly/build-tool-helpers`, () => {
     describe(`given no input`, () => {
       let result: ReadonlyArray<number>
       beforeEach(async () => {
-        result = await mapProgress(`Test Message`, [], callback)
+        result = await mapArrayArray(`Test Message`, [], callback)
       })
       it(
         `does not execute the callback`,
@@ -38,7 +38,7 @@ describe(`@woobly/build-tool-helpers`, () => {
     describe(`given input`, () => {
       let result: ReadonlyArray<number>
       beforeEach(async () => {
-        result = await mapProgress(
+        result = await mapArrayArray(
           `Test Message`,
           [
             `Test Input A`,

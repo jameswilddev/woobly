@@ -1,7 +1,7 @@
 import * as fs from "fs"
 import * as path from "path"
 import filterProgress from "./filter-progress"
-import mapProgress from "./map-progress"
+import mapArrayArray from "./map-array-array"
 
 export default async function (
   basePath: ReadonlyArray<string>,
@@ -24,7 +24,7 @@ export default async function (
   )
 
   const invalidKeys = keys.filter(key => !validKeys.includes(key))
-  await mapProgress(
+  await mapArrayArray(
     `Deleting incomplete cache items in "${joinedBasePath}"...`,
     invalidKeys,
     key => fs.promises.rmdir(path.join(joinedBasePath, key), { recursive: true })
