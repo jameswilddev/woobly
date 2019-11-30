@@ -26,6 +26,12 @@ export { default as determinePurposeOfFilePath } from "./determine-purpose-of-fi
 
 export { default as mapArrayArray } from "./map-array-array"
 
+export { default as mapArrayObject } from "./map-array-object"
+
+export { default as mapObjectArray } from "./map-object-array"
+
+export { default as mapObjectObject } from "./map-object-object"
+
 export { default as filterProgress } from "./filter-progress"
 
 export { default as loadApplication } from "./load-application"
