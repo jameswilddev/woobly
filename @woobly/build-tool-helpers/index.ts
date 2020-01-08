@@ -32,6 +32,8 @@ export { default as mapObjectArray } from "./map-object-array"
 
 export { default as mapObjectObject } from "./map-object-object"
 
+export { default as mapObjectObjectOfArrays } from "./map-object-object-of-arrays"
+
 export { default as filterProgress } from "./filter-progress"
 
 export { default as loadApplication } from "./load-application"
