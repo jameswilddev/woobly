@@ -1,7 +1,7 @@
 {
   "name": "@woobly/build-tool-helpers",
   "description": "Common helpers used by Woobly build tools.",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "engines": {
     "node": ">=12.13.0"
   },
