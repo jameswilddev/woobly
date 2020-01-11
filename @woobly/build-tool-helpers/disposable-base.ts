@@ -1,6 +1,7 @@
 import CriticalSection from "./critical-section"
+import IDisposable from "./i-disposable"
 
-export default abstract class DisposableBase {
+export default abstract class DisposableBase implements IDisposable {
   protected readonly criticalSection = new CriticalSection()
 
   async initialize(): Promise<void> {

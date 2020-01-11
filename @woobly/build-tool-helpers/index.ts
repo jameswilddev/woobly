@@ -38,6 +38,8 @@ export { default as filterProgress } from "./filter-progress"
 
 export { default as loadApplication } from "./load-application"
 
+export { default as IDisposable } from "./i-disposable"
+
 export { default as DisposableBase } from "./disposable-base"
 
 export { default as InvalidatableBase } from "./invalidatable-base"
