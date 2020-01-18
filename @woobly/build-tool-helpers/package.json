@@ -25,7 +25,7 @@
     "jsonschema": "1.2.5",
     "pngjs": "3.4.0",
     "progress": "2.0.3",
-    "typescript": "3.7.2",
+    "typescript": "3.7.5",
     "zopflipng-bin": "5.0.0"
   },
   "devDependencies": {
