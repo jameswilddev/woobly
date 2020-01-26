@@ -12,12 +12,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/jasmine": "3.5.0",
-    "@types/node": "12.12.14",
+    "@types/jasmine": "3.5.1",
+    "@types/node": "12.12.24",
     "del-cli": "3.0.0",
     "jasmine": "3.5.0",
-    "nyc": "14.1.1",
-    "typescript": "3.7.2"
+    "nyc": "15.0.0",
+    "typescript": "3.7.5"
   },
   "scripts": {
     "test": "del-cli '**/*.js' '**/*.d.ts' '!**/node_modules/**/*' '!test-data' && tsc --project tools.tsconfig.json && node build && tsc --project packages.tsconfig.json && nyc --check-coverage --all --exclude \"**/*-tests.*\" --exclude \"build/**/*\" --exclude \"publish/**/*\" --lines 100 --functions 100 --branches 100 --statements 100 jasmine --config=jasmine.json"
