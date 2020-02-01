@@ -1,12 +1,14 @@
 import CriticalSection from "./critical-section"
 import IDisposable from "./i-disposable"
 
-export default abstract class DisposableBase implements IDisposable {
+export default abstract class DisposableBase<TMetadata> implements IDisposable<TMetadata> {
   protected readonly criticalSection = new CriticalSection()
 
-  async initialize(): Promise<void> {
+  async initialize(
+    metadata: TMetadata,
+  ): Promise<void> {
     await this.criticalSection.execute(async () => {
-      await this.generate()
+      await this.generate(metadata)
     })
   }
 
@@ -16,6 +18,9 @@ export default abstract class DisposableBase implements IDisposable {
     })
   }
 
-  abstract generate(): Promise<void>
+  abstract generate(
+    metadata: TMetadata,
+  ): Promise<void>
+
   abstract cleanUp(): Promise<void>
 }

@@ -2,19 +2,23 @@ import { DisposableBase } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`disposableBase`, () => {
+    type MockMetadata = `Test Metadata`
+
     let generateResolve: () => void
     let generateReject: (reason: any) => void
     let generate: jasmine.Spy
     let cleanUpResolve: () => void
     let cleanUpReject: (reason: any) => void
     let cleanUp: jasmine.Spy
-    let invalidatable: DisposableBase
+    let invalidatable: DisposableBase<MockMetadata>
     let returnedPromise: Promise<void>
     let resolvedPromise: boolean
 
-    class InvalidatableMock extends DisposableBase {
-      generate() {
-        generate()
+    class InvalidatableMock extends DisposableBase<MockMetadata> {
+      generate(
+        metadata: MockMetadata,
+      ) {
+        generate(metadata)
         return new Promise<void>((resolve, reject) => {
           generateResolve = resolve
           generateReject = reject
@@ -47,7 +51,7 @@ describe(`@woobly/build-tool-helpers`, () => {
 
     describe(`when initialize is called`, () => {
       beforeEach(done => {
-        returnedPromise = invalidatable.initialize()
+        returnedPromise = invalidatable.initialize(`Test Metadata`)
         returnedPromise.then(
           () => { resolvedPromise = true },
           () => { resolvedPromise = true },
@@ -55,6 +59,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         setTimeout(done, delay)
       })
       it(`calls generate once`, () => expect(generate).toHaveBeenCalledTimes(1))
+      it(`calls generate with the given metadata`, () => expect(generate).toHaveBeenCalledWith(`Test Metadata`))
       it(`does not call cleanUp`, () => expect(cleanUp).not.toHaveBeenCalled())
       it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalsy())
       describe(`when generate resolves`, () => {

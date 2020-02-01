@@ -5,9 +5,14 @@ import { PersistentCacheItemBase } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`PersistentCacheItemBase`, () => {
+    type MockMetadata = `Test Metadata`
+
     describe(`when no operations are performed`, () => {
-      class MockPersistentCacheItem extends PersistentCacheItemBase {
-        async performGenerate(): Promise<void> {
+      class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+        async performGenerate(
+          metadata: MockMetadata,
+        ): Promise<void> {
+          metadata
         }
       }
 
@@ -37,14 +42,16 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         let directoryExistedAtTimeOfCallingPerformGenerate: null | boolean = null
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
             directoryExistedAtTimeOfCallingPerformGenerate = (await fs.promises.stat(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`))).isDirectory()
             await fs.promises.mkdir(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-subdirectory`), { recursive: true })
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-file-h`), `test file h content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-subdirectory`, `test-file-i`), `test file i content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-last-file-written`), `test file j content`)
-            return performGenerate()
+            return performGenerate(metadata)
           }
         }
 
@@ -77,7 +84,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             `test-last-file-written`,
           )
 
-          await cacheItem.generate()
+          await cacheItem.generate(`Test Metadata`)
         })
 
         afterAll(async () => {
@@ -85,6 +92,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         })
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
+        it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
         it(`has created the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
         it(`does not modify created files after performGenerate`, async () => {
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-file-h`), `utf8`)).toEqual(`test file h content`)
@@ -105,9 +113,11 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`cleanUp`, () => {
         const performGenerate = jasmine.createSpy(`performGenerate`)
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
-            return performGenerate()
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
+            return performGenerate(metadata)
           }
         }
 
@@ -175,8 +185,10 @@ describe(`@woobly/build-tool-helpers`, () => {
         let directoryExistedAtTimeOfCallingPerformGenerate: null | boolean = null
         let directoryWasClearedAtTimeOfCallingPerformGenerate: null | boolean = null
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
             directoryExistedAtTimeOfCallingPerformGenerate = (await fs.promises.stat(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`))).isDirectory()
 
             directoryWasClearedAtTimeOfCallingPerformGenerate = true
@@ -203,7 +215,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`, `test-file-h`), `test file h content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`, `test-subdirectory`, `test-file-i`), `test file i content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`, `test-last-file-written`), `test file j content`)
-            return performGenerate()
+            return performGenerate(metadata)
           }
         }
 
@@ -236,7 +248,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             `test-last-file-written`,
           )
 
-          await cacheItem.generate()
+          await cacheItem.generate(`Test Metadata`)
         })
 
         afterAll(async () => {
@@ -244,6 +256,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         })
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
+        it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
         it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
         it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTruthy())
         it(`does not modify created files after performGenerate`, async () => {
@@ -263,9 +276,11 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`cleanUp`, () => {
         const performGenerate = jasmine.createSpy(`performGenerate`)
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
-            return performGenerate()
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
+            return performGenerate(metadata)
           }
         }
 
@@ -328,9 +343,11 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`generate`, () => {
         const performGenerate = jasmine.createSpy(`performGenerate`)
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
-            return performGenerate()
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
+            return performGenerate(metadata)
           }
         }
 
@@ -363,7 +380,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             `test-last-file-written`,
           )
 
-          await cacheItem.generate()
+          await cacheItem.generate(`Test Metadata`)
         })
 
         afterAll(async () => {
@@ -387,9 +404,11 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`cleanUp`, () => {
         const performGenerate = jasmine.createSpy(`performGenerate`)
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
-            return performGenerate()
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
+            return performGenerate(metadata)
           }
         }
 
@@ -454,8 +473,10 @@ describe(`@woobly/build-tool-helpers`, () => {
         let directoryExistedAtTimeOfCallingPerformGenerate: null | boolean = null
         let directoryWasClearedAtTimeOfCallingPerformGenerate: null | boolean = null
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
             directoryExistedAtTimeOfCallingPerformGenerate = (await fs.promises.stat(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`))).isDirectory()
 
             directoryWasClearedAtTimeOfCallingPerformGenerate = true
@@ -482,7 +503,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`, `test-file-h`), `test file h content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`, `test-subdirectory`, `test-file-i`), `test file i content`)
             await fs.promises.writeFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`, `test-last-file-written`), `test file j content`)
-            return performGenerate()
+            return performGenerate(metadata)
           }
         }
 
@@ -515,7 +536,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             `test-last-file-written`,
           )
 
-          await cacheItem.generate()
+          await cacheItem.generate(`Test Metadata`)
         })
 
         afterAll(async () => {
@@ -523,6 +544,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         })
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
+        it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
         it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
         it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTruthy())
         it(`does not modify created files after performGenerate`, async () => {
@@ -542,9 +564,11 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(`cleanUp`, () => {
         const performGenerate = jasmine.createSpy(`performGenerate`)
 
-        class MockPersistentCacheItem extends PersistentCacheItemBase {
-          async performGenerate(): Promise<void> {
-            return performGenerate()
+        class MockPersistentCacheItem extends PersistentCacheItemBase<MockMetadata> {
+          async performGenerate(
+            metadata: MockMetadata,
+          ): Promise<void> {
+            return performGenerate(metadata)
           }
         }
 

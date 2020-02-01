@@ -1,10 +1,12 @@
 import DisposableBase from "./disposable-base"
 
-export default abstract class InvalidatableBase extends DisposableBase {
-  async invalidate(): Promise<void> {
+export default abstract class InvalidatableBase<TMetadata> extends DisposableBase<TMetadata> {
+  async invalidate(
+    metadata: TMetadata,
+  ): Promise<void> {
     await this.criticalSection.execute(async () => {
       await this.cleanUp()
-      await this.generate()
+      await this.generate(metadata)
     })
   }
 }

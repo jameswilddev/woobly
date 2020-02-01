@@ -2,11 +2,37 @@ import { IDisposable, Cache } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
   describe(`Cache`, () => {
-    class MockCacheItem implements IDisposable {
-      latestCall: null | `initialize` | `dispose` = null
+    type MockMetadata =
+      | `Test Metadata A`
+      | `Test Metadata B`
+      | `Test Metadata C`
+      | `Test Metadata D`
+      | `Test Metadata E`
+      | `Test Metadata F`
+      | `Test Metadata G`
+      | `Test Metadata H`
+      | `Test Metadata I`
+      | `Test Metadata J`
+      | `Test Metadata K`
+      | `Test Metadata L`
+      | `Test Metadata M`
+      | `Test Metadata N`
+      | `Test Metadata O`
+      | `Test Metadata P`
+      | `Test Metadata Q`
+      | `Test Metadata R`
+      | `Test Metadata S`
+      | `Test Metadata T`
 
-      async initialize(): Promise<void> {
+    class MockCacheItem implements IDisposable<MockMetadata> {
+      latestCall: null | `initialize` | `dispose` = null
+      metadata: MockMetadata[] = []
+
+      async initialize(
+        metadata: MockMetadata,
+      ): Promise<void> {
         this.latestCall = `initialize`
+        this.metadata.push(metadata)
       }
 
       async dispose(): Promise<void> {
@@ -56,8 +82,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -73,28 +99,28 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       beforeAll(async () => {
         await Promise.all([
-          cache.depend(`Test Existing Depended Upon Then Released`),
+          cache.depend(`Test Existing Depended Upon Then Released`, `Test Metadata A`),
           cache.release(`Test Existing Depended Upon Then Released`),
-          cache.depend(`Test Existing Depended Upon Then Partially Released`),
-          cache.depend(`Test Existing Depended Upon Then Partially Released`),
+          cache.depend(`Test Existing Depended Upon Then Partially Released`, `Test Metadata B`),
+          cache.depend(`Test Existing Depended Upon Then Partially Released`, `Test Metadata C`),
           cache.release(`Test Existing Depended Upon Then Partially Released`),
-          cache.depend(`Test Existing Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`),
+          cache.depend(`Test Existing Depended Upon`, `Test Metadata D`),
+          cache.depend(`Test Existing Depended Upon Then Depended Upon`, `Test Metadata E`),
+          cache.depend(`Test Existing Depended Upon Then Depended Upon`, `Test Metadata F`),
+          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`, `Test Metadata G`),
           cache.release(`Test Existing Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Released`),
+          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`, `Test Metadata H`),
+          cache.depend(`Test New Depended Upon Then Released`, `Test Metadata I`),
           cache.release(`Test New Depended Upon Then Released`),
-          cache.depend(`Test New Depended Upon Then Partially Released`),
-          cache.depend(`Test New Depended Upon Then Partially Released`),
+          cache.depend(`Test New Depended Upon Then Partially Released`, `Test Metadata J`),
+          cache.depend(`Test New Depended Upon Then Partially Released`, `Test Metadata K`),
           cache.release(`Test New Depended Upon Then Partially Released`),
-          cache.depend(`Test New Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`),
+          cache.depend(`Test New Depended Upon`, `Test Metadata L`),
+          cache.depend(`Test New Depended Upon Then Depended Upon`, `Test Metadata M`),
+          cache.depend(`Test New Depended Upon Then Depended Upon`, `Test Metadata N`),
+          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`, `Test Metadata O`),
           cache.release(`Test New Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`),
+          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`, `Test Metadata P`),
         ])
       })
 
@@ -102,33 +128,43 @@ describe(`@woobly/build-tool-helpers`, () => {
       it(`creates instances of existing items which are released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Unused`))
 
       it(`disposes of existing items which are depended upon then released`, () => expect(existingDependedUponThenReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then released`, () => existingDependedUponThenReleased.metadata.forEach(metadata => expect([`Test Metadata A`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Released`))
 
       it(`initializes existing items which are depended upon then partially released`, () => expect(existingDependedUponThenPartiallyReleased.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then partially released`, () => existingDependedUponThenPartiallyReleased.metadata.forEach(metadata => expect([`Test Metadata B`, `Test Metadata C`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then partially released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Partially Released`))
 
       it(`initializes existing items which are depended upon`, () => expect(existingDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon`, () => existingDependedUpon.metadata.forEach(metadata => expect([`Test Metadata D`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon`))
 
       it(`initializes existing items which are depended upon then depended upon`, () => expect(existingDependedUponThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then depended upon`, () => existingDependedUponThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata E`, `Test Metadata F`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Depended Upon`))
 
       it(`initializes existing items which are depended upon then released then depended upon`, () => expect(existingDependedUponThenReleasedThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then released then depended upon`, () => existingDependedUponThenReleasedThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata G`, `Test Metadata H`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then released then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Released Then Depended Upon`))
 
       it(`disposes of new items which are depended upon then released`, () => expect(newDependedUponThenReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing new items which are depended upon then released`, () => newDependedUponThenReleased.metadata.forEach(metadata => expect([`Test Metadata I`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then released`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Released`))
 
       it(`initializes new items which are depended upon then partially released`, () => expect(newDependedUponThenPartiallyReleased.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then partially released`, () => newDependedUponThenPartiallyReleased.metadata.forEach(metadata => expect([`Test Metadata J`, `Test Metadata K`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then partially released`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Partially Released`))
 
       it(`initializes new items which are depended upon`, () => expect(newDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon`, () => newDependedUpon.metadata.forEach(metadata => expect([`Test Metadata L`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon`))
 
       it(`initializes new items which are depended upon then depended upon`, () => expect(newDependedUponThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then depended upon`, () => newDependedUponThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata M`, `Test Metadata N`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Depended Upon`))
 
       it(`initializes new items which are depended upon then released then depended upon`, () => expect(newDependedUponThenReleasedThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then released then depended upon`, () => newDependedUponThenReleasedThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata O`, `Test Metadata P`, `Test Metadata Q`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then released then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Released Then Depended Upon`))
 
       it(`does not create any further items`, () => expect(createInstance).toHaveBeenCalledTimes(11))
@@ -188,8 +224,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -207,34 +243,34 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       beforeAll(async () => {
         await Promise.all([
-          cache.depend(`Test Existing Depended Upon Then Released`),
+          cache.depend(`Test Existing Depended Upon Then Released`, `Test Metadata A`),
           cache.release(`Test Existing Depended Upon Then Released`),
-          cache.depend(`Test Existing Depended Upon Then Partially Released`),
-          cache.depend(`Test Existing Depended Upon Then Partially Released`),
+          cache.depend(`Test Existing Depended Upon Then Partially Released`, `Test Metadata B`),
+          cache.depend(`Test Existing Depended Upon Then Partially Released`, `Test Metadata C`),
           cache.release(`Test Existing Depended Upon Then Partially Released`),
-          cache.depend(`Test Existing Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`),
+          cache.depend(`Test Existing Depended Upon`, `Test Metadata D`),
+          cache.depend(`Test Existing Depended Upon Then Depended Upon`, `Test Metadata E`),
+          cache.depend(`Test Existing Depended Upon Then Depended Upon`, `Test Metadata F`),
+          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`, `Test Metadata G`),
           cache.release(`Test Existing Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test Existing After Purge Released`),
-          cache.depend(`Test New Depended Upon Then Released`),
+          cache.depend(`Test Existing Depended Upon Then Released Then Depended Upon`, `Test Metadata H`),
+          cache.depend(`Test Existing After Purge Released`, `Test Metadata I`),
+          cache.depend(`Test New Depended Upon Then Released`, `Test Metadata J`),
           cache.release(`Test New Depended Upon Then Released`),
-          cache.depend(`Test New Depended Upon Then Partially Released`),
-          cache.depend(`Test New Depended Upon Then Partially Released`),
+          cache.depend(`Test New Depended Upon Then Partially Released`, `Test Metadata K`),
+          cache.depend(`Test New Depended Upon Then Partially Released`, `Test Metadata L`),
           cache.release(`Test New Depended Upon Then Partially Released`),
-          cache.depend(`Test New Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`),
+          cache.depend(`Test New Depended Upon`, `Test Metadata M`),
+          cache.depend(`Test New Depended Upon Then Depended Upon`, `Test Metadata N`),
+          cache.depend(`Test New Depended Upon Then Depended Upon`, `Test Metadata O`),
+          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`, `Test Metadata P`),
           cache.release(`Test New Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`),
-          cache.depend(`Test New After Purge Released`),
+          cache.depend(`Test New Depended Upon Then Released Then Depended Upon`, `Test Metadata Q`),
+          cache.depend(`Test New After Purge Released`, `Test Metadata R`),
           cache.purge(),
-          cache.depend(`Test Existing After Purge Depended Upon`),
+          cache.depend(`Test Existing After Purge Depended Upon`, `Test Metadata S`),
           cache.release(`Test Existing After Purge Released`),
-          cache.depend(`Test New After Purge Depended Upon`),
+          cache.depend(`Test New After Purge Depended Upon`, `Test Metadata T`),
           cache.release(`Test New After Purge Released`),
         ])
       })
@@ -243,46 +279,60 @@ describe(`@woobly/build-tool-helpers`, () => {
       it(`creates instances of existing items which are released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Unused`))
 
       it(`disposes of existing items which are depended upon then released`, () => expect(existingDependedUponThenReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then released`, () => existingDependedUponThenReleased.metadata.forEach(metadata => expect([`Test Metadata A`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Released`))
 
       it(`initializes existing items which are depended upon then partially released`, () => expect(existingDependedUponThenPartiallyReleased.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then partially released`, () => existingDependedUponThenPartiallyReleased.metadata.forEach(metadata => expect([`Test Metadata B`, `Test Metadata C`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then partially released`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Partially Released`))
 
       it(`initializes existing items which are depended upon`, () => expect(existingDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon`, () => existingDependedUpon.metadata.forEach(metadata => expect([`Test Metadata D`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon`))
 
       it(`initializes existing items which are depended upon then depended upon`, () => expect(existingDependedUponThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then depended upon`, () => existingDependedUponThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata E`, `Test Metadata F`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Depended Upon`))
 
       it(`initializes existing items which are depended upon then released then depended upon`, () => expect(existingDependedUponThenReleasedThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon then released then depended upon`, () => existingDependedUponThenReleasedThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata G`, `Test Metadata H`]).toContain(metadata)))
       it(`creates instances of existing items which are depended upon then released then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing Depended Upon Then Released Then Depended Upon`))
 
-      it(`initializes existing items which are depended upon after purge`, () => expect(existingAfterPurgeDependedUpon.latestCall).toEqual(`initialize`))
-      it(`creates instances of existing items which are depended upon after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing After Purge Depended Upon`))
-
       it(`disposes of existing items which are released after purge`, () => expect(existingAfterPurgeReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing existing items which are released after purge`, () => existingAfterPurgeReleased.metadata.forEach(metadata => expect([`Test Metadata I`]).toContain(metadata)))
       it(`creates instances of existing items which are released after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing After Purge Released`))
 
       it(`disposes of new items which are depended upon then released`, () => expect(newDependedUponThenReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing new items which are depended upon then released`, () => newDependedUponThenReleased.metadata.forEach(metadata => expect([`Test Metadata J`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then released`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Released`))
 
       it(`initializes new items which are depended upon then partially released`, () => expect(newDependedUponThenPartiallyReleased.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then partially released`, () => newDependedUponThenPartiallyReleased.metadata.forEach(metadata => expect([`Test Metadata K`, `Test Metadata L`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then partially released`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Partially Released`))
 
       it(`initializes new items which are depended upon`, () => expect(newDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon`, () => newDependedUpon.metadata.forEach(metadata => expect([`Test Metadata M`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon`))
 
       it(`initializes new items which are depended upon then depended upon`, () => expect(newDependedUponThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then depended upon`, () => newDependedUponThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata N`, `Test Metadata O`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Depended Upon`))
 
       it(`initializes new items which are depended upon then released then depended upon`, () => expect(newDependedUponThenReleasedThenDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon then released then depended upon`, () => newDependedUponThenReleasedThenDependedUpon.metadata.forEach(metadata => expect([`Test Metadata P`, `Test Metadata Q`]).toContain(metadata)))
       it(`creates instances of new items which are depended upon then released then depended upon`, () => expect(createInstance).toHaveBeenCalledWith(`Test New Depended Upon Then Released Then Depended Upon`))
 
-      it(`initializes new items which are depended upon after purge`, () => expect(newAfterPurgeDependedUpon.latestCall).toEqual(`initialize`))
-      it(`creates instances of new items which are depended upon after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test New After Purge Depended Upon`))
-
       it(`disposes of new items which are released after purge`, () => expect(newAfterPurgeReleased.latestCall).toEqual(`dispose`))
+      it(`uses only expected metadata when initializing new items which are released after purge`, () => newAfterPurgeReleased.metadata.forEach(metadata => expect([`Test Metadata R`]).toContain(metadata)))
       it(`creates instances of new items which are released after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test New After Purge Released`))
+
+      it(`initializes existing items which are depended upon after purge`, () => expect(existingAfterPurgeDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing existing items which are depended upon after purge`, () => existingAfterPurgeDependedUpon.metadata.forEach(metadata => expect([`Test Metadata S`]).toContain(metadata)))
+      it(`creates instances of existing items which are depended upon after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test Existing After Purge Depended Upon`))
+
+      it(`initializes new items which are depended upon after purge`, () => expect(newAfterPurgeDependedUpon.latestCall).toEqual(`initialize`))
+      it(`uses only expected metadata when initializing new items which are depended upon after purge`, () => newAfterPurgeDependedUpon.metadata.forEach(metadata => expect([`Test Metadata T`]).toContain(metadata)))
+      it(`creates instances of new items which are depended upon after purge`, () => expect(createInstance).toHaveBeenCalledWith(`Test New After Purge Depended Upon`))
 
       it(`does not create any further items`, () => expect(createInstance).toHaveBeenCalledTimes(15))
     })
@@ -302,8 +352,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -348,8 +398,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -364,7 +414,7 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       beforeAll(async () => {
         await Promise.all([
-          cache.depend(`Test Existing Released`),
+          cache.depend(`Test Existing Released`, `Test Metadata A`),
           cache.release(`Test Existing Released`),
         ])
 
@@ -395,8 +445,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -436,8 +486,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       })
 
-      class MockCache extends Cache {
-        createInstance(key: string): IDisposable {
+      class MockCache extends Cache<MockMetadata> {
+        createInstance(key: string): IDisposable<MockMetadata> {
           return createInstance(key)
         }
       }
@@ -450,7 +500,7 @@ describe(`@woobly/build-tool-helpers`, () => {
 
       beforeAll(async () => {
         await Promise.all([
-          cache.depend(`Test New Released`),
+          cache.depend(`Test New Released`, `Test Metadata A`),
           cache.release(`Test New Released`),
         ])
 

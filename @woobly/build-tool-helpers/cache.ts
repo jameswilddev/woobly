@@ -1,12 +1,12 @@
 import IDisposable from "./i-disposable"
 import mapObjectArray from "./map-object-array"
 
-export default abstract class Cache {
+export default abstract class Cache<TMetadata> {
   private readonly items: {
     [key: string]: {
       users: number
       needsPurging: boolean
-      readonly instance: IDisposable
+      readonly instance: IDisposable<TMetadata>
     }
   } = {}
 
@@ -20,10 +20,11 @@ export default abstract class Cache {
     })
   }
 
-  abstract createInstance(key: string): IDisposable
+  abstract createInstance(key: string): IDisposable<TMetadata>
 
   async depend(
     key: string,
+    metadata: TMetadata,
   ): Promise<void> {
     if (!Object.prototype.hasOwnProperty.call(this.items, key)) {
       this.items[key] = {
@@ -38,7 +39,7 @@ export default abstract class Cache {
 
     if (this.items[key].users === 1) {
       item.needsPurging = false
-      await this.items[key].instance.initialize()
+      await this.items[key].instance.initialize(metadata)
     }
   }
 

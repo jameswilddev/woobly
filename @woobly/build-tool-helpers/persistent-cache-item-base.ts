@@ -2,7 +2,7 @@ import * as fs from "fs"
 import * as path from "path"
 import DisposableBase from "./disposable-base"
 
-export default abstract class PersistentCacheItemBase extends DisposableBase {
+export default abstract class PersistentCacheItemBase<TMetadata> extends DisposableBase<TMetadata> {
   public readonly pathToKeyDirectory: string
   public readonly pathToLastFileWritten: string
 
@@ -16,7 +16,9 @@ export default abstract class PersistentCacheItemBase extends DisposableBase {
     this.pathToLastFileWritten = path.join(this.pathToKeyDirectory, lastFileWritten)
   }
 
-  async generate(): Promise<void> {
+  async generate(
+    metadata: TMetadata,
+  ): Promise<void> {
     try {
       const stat = await fs.promises.stat(this.pathToLastFileWritten)
       if (stat.isFile()) {
@@ -27,10 +29,12 @@ export default abstract class PersistentCacheItemBase extends DisposableBase {
     await this.cleanUp()
     await fs.promises.mkdir(this.pathToKeyDirectory, { recursive: true });
 
-    await this.performGenerate()
+    await this.performGenerate(metadata)
   }
 
-  abstract performGenerate(): Promise<void>
+  abstract performGenerate(
+    metadata: TMetadata,
+  ): Promise<void>
 
   async cleanUp(): Promise<void> {
     await fs.promises.rmdir(this.pathToKeyDirectory, { recursive: true });
