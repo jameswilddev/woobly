@@ -2,6 +2,7 @@ import * as os from "os"
 import * as fs from "fs"
 import * as path from "path"
 import * as pngjs from "pngjs"
+import * as jsdom from "jsdom"
 import writeFile from "./write-file"
 
 describe(`@woobly/build-tool-helpers`, () => {
@@ -154,6 +155,53 @@ describe(`@woobly/build-tool-helpers`, () => {
               `writes a png with the same rgb channels where the alpha channel is non-zero`,
               () => expect(zeroRgbWhereAlphaIsZero(destinationPng.data))
                 .toEqual(zeroRgbWhereAlphaIsZero(sourcePng.data)),
+            )
+          }
+        )
+
+        scenario(
+          `html`,
+          `example.html`,
+          (sourceFilePath, destinationFilePath) => {
+            let sourceHtml: string
+            let destinationHtml: string
+
+            beforeAll(async () => {
+              // This isn't really correct, but "will do" for making sure
+              // roughly equivalent HTML was output given controlled input.
+              function recurseDom(
+                element: Element,
+              ): string {
+                if (
+                  [`HTML`, `HEAD`, `META`, `TITLE`, `BODY`, `DIV`, `UL`, `LI`].includes(element.tagName)
+                ) {
+                  const attributes = Array
+                    .from(element.attributes)
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map(a => ` ${a.name}="${a.value}"`)
+                    .join(``)
+
+                  const content = element.children.length
+                    ? Array.from(element.children).map(recurseDom).join(``)
+                    : element.textContent
+                  return `<${element.tagName}${attributes}>${content}</${element.tagName}>`
+                } else {
+                  throw new Error(`Unimplemented tag name "${element.tagName}".`)
+                }
+              }
+
+              const sourceFile = await fs.promises.readFile(sourceFilePath(), `utf8`)
+              const sourceDom = new jsdom.JSDOM(sourceFile)
+              sourceHtml = recurseDom(sourceDom.window.document.documentElement)
+
+              const destinationFile = await fs.promises.readFile(destinationFilePath(), `utf8`)
+              const destinationDom = new jsdom.JSDOM(destinationFile)
+              destinationHtml = recurseDom(destinationDom.window.document.documentElement)
+            })
+
+            it(
+              `writes a html file with content equivalent to that expected`,
+              () => expect(sourceHtml).toEqual(destinationHtml),
             )
           }
         )

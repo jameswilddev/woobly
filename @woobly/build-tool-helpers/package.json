@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "favicons": "5.5.0",
+    "html-minifier": "^4.0.0",
     "jsonschema": "1.2.5",
     "pngjs": "3.4.0",
     "progress": "2.0.3",
@@ -30,9 +31,12 @@
   },
   "devDependencies": {
     "@types/favicons": "5.3.2",
+    "@types/html-minifier": "^3.5.3",
+    "@types/jsdom": "^12.2.4",
     "@types/pngjs": "3.4.0",
     "@types/progress": "2.0.3",
-    "@types/zopflipng-bin": "4.1.0"
+    "@types/zopflipng-bin": "4.1.0",
+    "jsdom": "^16.0.1"
   },
   "types": "index.d.ts"
 }
