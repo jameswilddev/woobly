@@ -10,9 +10,9 @@ export default abstract class Cache<TMetadata> {
     }
   } = {}
 
-  constructor(
+  initialize(
     existingKeys: ReadonlyArray<string>,
-  ) {
+  ): void {
     existingKeys.forEach(key => this.items[key] = {
       users: 0,
       needsPurging: true,

@@ -88,7 +88,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Unused`,
         `Test Existing Depended Upon Then Released`,
         `Test Existing Depended Upon Then Partially Released`,
@@ -230,7 +232,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Unused`,
         `Test Existing Depended Upon Then Released`,
         `Test Existing Depended Upon Then Partially Released`,
@@ -358,7 +362,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Unused`,
         `Test Existing Other`,
       ])
@@ -404,7 +410,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Released`,
         `Test Existing Unused`,
         `Test Existing Other`,
@@ -451,7 +459,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Other`,
       ])
 
@@ -492,7 +502,9 @@ describe(`@woobly/build-tool-helpers`, () => {
         }
       }
 
-      const cache = new MockCache([
+      const cache = new MockCache()
+
+      cache.initialize([
         `Test Existing Other`,
       ])
 
