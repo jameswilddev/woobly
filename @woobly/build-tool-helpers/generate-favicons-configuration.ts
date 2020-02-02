@@ -71,6 +71,9 @@ export default function (
       firefox: production,
       windows: production,
       yandex: production,
-    }
+    },
+    scope: `/`,
+    pipeHTML: false,
+    manifestRelativePaths: false,
   }
 }
