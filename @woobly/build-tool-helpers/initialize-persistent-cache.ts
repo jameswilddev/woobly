@@ -8,6 +8,7 @@ export default async function (
   lastFileWritten: string,
 ): Promise<ReadonlyArray<string>> {
   const joinedBasePath = path.join.apply(path, basePath.slice())
+  await fs.promises.mkdir(joinedBasePath, { recursive: true })
   const keys = await fs.promises.readdir(joinedBasePath)
 
   const validKeys = await filterProgress(
