@@ -6,7 +6,7 @@ describe(`@woobly/build-tool-helpers`, () => {
     beforeAll(() => {
       const application: Application = {
         logo: {
-          filePath: ["Test Logo", "File Path"],
+          filePath: [`Test Logo`, `File Path`],
           pixelArt: false,
           backgroundColor: `Test Logo Background Color`,
         },
