@@ -27,7 +27,7 @@
     "jsonschema": "1.2.5",
     "pngjs": "3.4.0",
     "progress": "2.0.3",
-    "pug": "^2.0.4",
+    "pug": "2.0.4",
     "typescript": "3.7.5",
     "zopflipng-bin": "5.0.0"
   },
@@ -37,7 +37,7 @@
     "@types/jsdom": "12.2.4",
     "@types/pngjs": "3.4.0",
     "@types/progress": "2.0.3",
-    "@types/pug": "^2.0.4",
+    "@types/pug": "2.0.4",
     "@types/zopflipng-bin": "4.1.0",
     "jsdom": "16.1.0"
   },
