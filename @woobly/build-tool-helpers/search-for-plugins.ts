@@ -1,13 +1,12 @@
 import * as fs from "fs"
 import * as path from "path"
 import listAllDependencies from "./list-all-dependencies"
+import SearchedPlugin from "./searched-plugin"
 
-export default async function (): Promise<{
-  readonly [fileExtension: string]: string
-}> {
+export default async function (): Promise<ReadonlyArray<SearchedPlugin>> {
   const dependencies = await listAllDependencies()
 
-  const output: { [fileExtension: string]: string } = {}
+  const output: SearchedPlugin[] = []
 
   for (const dependency of dependencies) {
     const dependencyLocation = path.join(`node_modules`, dependency)
@@ -35,17 +34,27 @@ export default async function (): Promise<{
     }
 
     const dependencyPackageJson: {
+      readonly version: string
       readonly wooblyPlugin?: {
         readonly fileExtension: string
       }
     } = JSON.parse(dependencyPackageJsonText)
 
     if (dependencyPackageJson.wooblyPlugin) {
-      if (Object.prototype.hasOwnProperty.call(output, dependencyPackageJson.wooblyPlugin.fileExtension)) {
-        throw new Error(`Plugins "${output[dependencyPackageJson.wooblyPlugin.fileExtension]}" and "${dependency}" are in conflict with regards to file extension "${dependencyPackageJson.wooblyPlugin.fileExtension}".  Please ensure that no two plugins handle the same file extension.`)
+      const fileExtension = dependencyPackageJson.wooblyPlugin.fileExtension
+
+      const existing = output.find(existing => existing.fileExtension === fileExtension)
+
+      if (existing !== undefined) {
+        throw new Error(`Plugins "${existing.name}" and "${dependency}" are in conflict with regards to file extension "${fileExtension}".  Please ensure that no two plugins handle the same file extension.`)
       }
 
-      output[dependencyPackageJson.wooblyPlugin.fileExtension] = dependency
+      output.push({
+        name: dependency,
+        cacheKeyPrefix: `${dependency}@${dependencyPackageJson.version}`,
+        fileExtension: dependencyPackageJson.wooblyPlugin.fileExtension,
+        instance: require(`${path.join(process.cwd(), `node_modules`, dependency)}`),
+      })
     }
   }
 

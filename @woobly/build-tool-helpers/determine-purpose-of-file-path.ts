@@ -2,9 +2,10 @@ import * as path from "path"
 import tryToFindContentDetailsFromFilePath from "./try-to-find-content-details-from-file-path"
 import MapOne from "./map-one"
 import FilePath from "./file-path"
+import SearchedPlugin from "./searched-plugin"
 
 export default function (
-  plugins: { readonly [fileExtension: string]: string },
+  plugins: ReadonlyArray<SearchedPlugin>,
   filePath: string,
 ): MapOne<FilePath> {
   if (filePath.endsWith(`.ts`)) {
@@ -30,14 +31,14 @@ export default function (
     }
   }
 
-  if (!Object.prototype.hasOwnProperty.call(plugins, contentDetails.fileExtension)) {
+  const plugin = plugins.find(plugin => plugin.fileExtension === contentDetails.fileExtension)
+
+  if (plugin === undefined) {
     let pluginFileExtensionList: string
 
     if (Object.keys(plugins).length) {
-      const list = Object
-        .entries(plugins)
-        .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(plugin => `"${plugin[0]}" (from plugin "${plugin[1]}")`)
+      const list = plugins
+        .map(plugin => `"${plugin.fileExtension}" (from plugin "${plugin.name}")`)
         .join(`, `)
       pluginFileExtensionList = `Plugins are installed for the following file extensions: ${list}`
     } else {
@@ -53,7 +54,7 @@ export default function (
   return {
     type: `content`,
     filePath,
-    plugin: plugins[contentDetails.fileExtension],
+    plugin,
     typeScriptIdentifier: contentDetails.typeScriptIdentifier,
   }
 }

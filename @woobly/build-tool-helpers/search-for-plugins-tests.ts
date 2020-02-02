@@ -1,4 +1,5 @@
 import * as path from "path"
+import SearchedPlugin from "./searched-plugin"
 import { searchForPlugins } from "./index"
 
 describe(`@woobly/build-tool-helpers`, () => {
@@ -27,12 +28,39 @@ describe(`@woobly/build-tool-helpers`, () => {
     function resolves(
       description: string,
       directory: string,
-      plugins: { readonly [fileExtension: string]: string },
+      expected: ReadonlyArray<SearchedPlugin>,
     ): void {
       scenario(description, directory, () => {
+        let actual: ReadonlyArray<SearchedPlugin>
+
+        beforeAll(async () => {
+          actual = await searchForPlugins()
+        })
+
         it(
-          `resolves with the expected map of file extensions to plugins`,
-          () => expectAsync(searchForPlugins()).toBeResolvedTo(plugins)
+          `returns the expected number of plugins`,
+          () => expect(actual.length).toEqual(expected.length),
+        )
+
+        it(
+          `returns the expected cache key prefixes`,
+          () => expected
+            .slice(0, Math.min(expected.length, actual.length))
+            .forEach((expected, i) => expect(actual[i].cacheKeyPrefix).toEqual(expected.cacheKeyPrefix)),
+        )
+
+        it(
+          `returns the expected file extensions`,
+          () => expected
+            .slice(0, Math.min(expected.length, actual.length))
+            .forEach((expected, i) => expect(actual[i].fileExtension).toEqual(expected.fileExtension)),
+        )
+
+        it(
+          `returns the expected instances`,
+          () => expected
+            .slice(0, Math.min(expected.length, actual.length))
+            .forEach((expected, i) => expect(actual[i].instance).toBe(expected.instance)),
         )
       })
     }
@@ -50,13 +78,24 @@ describe(`@woobly/build-tool-helpers`, () => {
       })
     }
 
-    resolves(`with plugins`, `with-plugins`, {
-      "test.file.extension.a": `pretend-plugin-a`,
-      "test.file.extension.b": `pretend-plugin-b`,
-      "test.file.extension.c": `pretend-plugin-c`,
-    })
+    resolves(`with plugins`, `with-plugins`, [{
+      name: `pretend-plugin-a`,
+      cacheKeyPrefix: `pretend-plugin-a@Test Pretend Plugin A Version`,
+      fileExtension: `test.file.extension.a`,
+      instance: require(path.join(__dirname, `..`, `..`, `test-data`, `search-for-plugins`, `with-plugins`, `node_modules`, `pretend-plugin-a`)),
+    }, {
+      name: `pretend-plugin-b`,
+      cacheKeyPrefix: `pretend-plugin-b@Test Pretend Plugin B Version`,
+      fileExtension: `test.file.extension.b`,
+      instance: require(path.join(__dirname, `..`, `..`, `test-data`, `search-for-plugins`, `with-plugins`, `node_modules`, `pretend-plugin-b`)),
+    }, {
+      name: `pretend-plugin-c`,
+      cacheKeyPrefix: `pretend-plugin-c@Test Pretend Plugin C Version`,
+      fileExtension: `test.file.extension.c`,
+      instance: require(path.join(__dirname, `..`, `..`, `test-data`, `search-for-plugins`, `with-plugins`, `node_modules`, `pretend-plugin-c`)),
+    }])
 
-    resolves(`without plugins`, `without-plugins`, {})
+    resolves(`without plugins`, `without-plugins`, [])
 
     rejects(`node_modules missing`, `node-modules-missing`, `The "node_modules" directory is missing.  Please ensure that dependencies have been installed (execute "npm install").`)
     rejects(`dependency missing`, `dependency-missing`, `Dependency "non-plugin-c" is missing from the "node_modules" directory.  Please ensure that dependencies have been installed (execute "npm install").`)
