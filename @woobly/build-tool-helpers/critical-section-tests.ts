@@ -55,7 +55,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         setTimeout(done, delay)
       })
       it(`executes the first callback once`, () => expect(callbackA).toHaveBeenCalledTimes(1))
-      it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalsy())
+      it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalse())
       describe(`resolve`, () => {
         beforeEach(done => {
           callbackPromiseResolveA()
@@ -71,7 +71,7 @@ describe(`@woobly/build-tool-helpers`, () => {
           })
           it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
           it(`executes the second callback once`, () => expect(callbackB).toHaveBeenCalledTimes(1))
-          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalsy())
+          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalse())
           describe(`resolve`, () => {
             beforeEach(done => {
               callbackPromiseResolveB()
@@ -89,7 +89,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -129,7 +129,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -160,8 +160,8 @@ describe(`@woobly/build-tool-helpers`, () => {
             })
             it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
             it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
-            it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalsy())
-            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+            it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalse())
+            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
             describe(`resolve`, () => {
               beforeEach(done => {
                 callbackPromiseResolveB()
@@ -171,7 +171,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
               it(`resolves the second returned promise`, () => expectAsync(resultB).toBeResolved())
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -202,7 +202,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
               it(`rejects the second returned promise`, () => expectAsync(resultB).toBeRejected(`Test Reason B`))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -259,7 +259,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -299,7 +299,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -330,7 +330,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             })
             it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
             it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
-            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
             describe(`resolve`, () => {
               beforeEach(done => {
                 callbackPromiseResolveB()
@@ -340,7 +340,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
               it(`resolves the second returned promise`, () => expectAsync(resultB).toBeResolved())
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -371,7 +371,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
               it(`rejects the second returned promise`, () => expectAsync(resultB).toBeRejected(`Test Reason B`))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -404,8 +404,8 @@ describe(`@woobly/build-tool-helpers`, () => {
         })
         it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
         it(`does not execute the second callback`, () => expect(callbackB).not.toHaveBeenCalled())
-        it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalsy())
-        it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalsy())
+        it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalse())
+        it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalse())
         describe(`resolve`, () => {
           beforeEach(done => {
             callbackPromiseResolveA()
@@ -413,7 +413,7 @@ describe(`@woobly/build-tool-helpers`, () => {
           })
           it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
           it(`executes the second callback once`, () => expect(callbackB).toHaveBeenCalledTimes(1))
-          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalsy())
+          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalse())
           it(`resolves the first returned promise`, () => expectAsync(resultA).toBeResolved())
           describe(`resolve`, () => {
             beforeEach(done => {
@@ -432,7 +432,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -472,7 +472,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -504,7 +504,7 @@ describe(`@woobly/build-tool-helpers`, () => {
           it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
           it(`executes the second callback once`, () => expect(callbackB).toHaveBeenCalledTimes(1))
           it(`rejects the first returned promise`, () => expectAsync(resultA).toBeRejected(`Test Reason A`))
-          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalsy())
+          it(`does not resolve the second returned promise`, () => expect(resultBResolved).toBeFalse())
           describe(`resolve`, () => {
             beforeEach(done => {
               callbackPromiseResolveB()
@@ -522,7 +522,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -562,7 +562,7 @@ describe(`@woobly/build-tool-helpers`, () => {
               it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
               it(`does not execute the second callback again`, () => expect(callbackB).toHaveBeenCalledTimes(1))
               it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
-              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+              it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
               describe(`resolve`, () => {
                 beforeEach(done => {
                   callbackPromiseResolveC()
@@ -594,9 +594,9 @@ describe(`@woobly/build-tool-helpers`, () => {
           })
           it(`does not execute the first callback again`, () => expect(callbackA).toHaveBeenCalledTimes(1))
           it(`does not execute the second callback`, () => expect(callbackB).not.toHaveBeenCalled())
-          it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalsy())
+          it(`does not resolve the first returned promise`, () => expect(resultAResolved).toBeFalse())
           it(`resolves the second returned promise`, () => expectAsync(resultB).toBeResolved())
-          it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+          it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
           describe(`resolve`, () => {
             beforeEach(done => {
               callbackPromiseResolveA()
@@ -606,7 +606,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             it(`does not execute the second callback`, () => expect(callbackB).not.toHaveBeenCalled())
             it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
             it(`resolves the first returned promise`, () => expectAsync(resultA).toBeResolved())
-            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
             describe(`resolve`, () => {
               beforeEach(done => {
                 callbackPromiseResolveC()
@@ -637,7 +637,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             it(`does not execute the second callback`, () => expect(callbackB).not.toHaveBeenCalled())
             it(`executes the third callback once`, () => expect(callbackC).toHaveBeenCalledTimes(1))
             it(`rejects the first returned promise`, () => expectAsync(resultA).toBeRejected(`Test Reason A`))
-            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalsy())
+            it(`does not resolve the third returned promise`, () => expect(resultCResolved).toBeFalse())
             describe(`resolve`, () => {
               beforeEach(done => {
                 callbackPromiseResolveC()

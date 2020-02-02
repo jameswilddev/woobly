@@ -9,7 +9,7 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(description, () => {
         it(
           `is accepted as it appears to be a source file`,
-          () => expect(filePathShouldBeProcessed(filePath)).toBeTruthy()
+          () => expect(filePathShouldBeProcessed(filePath)).toBeTrue()
         )
       })
     }
@@ -21,7 +21,7 @@ describe(`@woobly/build-tool-helpers`, () => {
       describe(description, () => {
         it(
           `is rejected as it appears to be a temporary file or similar`,
-          () => expect(filePathShouldBeProcessed(filePath)).toBeFalsy()
+          () => expect(filePathShouldBeProcessed(filePath)).toBeFalse()
         )
       })
     }

@@ -92,7 +92,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             result = jsonschema.validate(value, applicationJsonSchema)
           })
 
-          it(`is valid`, () => expect(result.valid).toBeTruthy())
+          it(`is valid`, () => expect(result.valid).toBeTrue())
         }
       )
     }
@@ -111,7 +111,7 @@ describe(`@woobly/build-tool-helpers`, () => {
             result = jsonschema.validate(value, applicationJsonSchema)
           })
 
-          it(`is not valid`, () => expect(result.valid).toBeFalsy())
+          it(`is not valid`, () => expect(result.valid).toBeFalse())
           it(`encounters one error`, () => expect(result.errors.length).toEqual(1))
 
           it(`rejects the expected property`, () => expect(result.errors.map(e => e.property)).toEqual([property]))

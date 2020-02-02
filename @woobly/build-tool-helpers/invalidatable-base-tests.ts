@@ -60,7 +60,7 @@ describe(`@woobly/build-tool-helpers`, () => {
       })
       it(`does not call generate`, () => expect(generate).not.toHaveBeenCalled())
       it(`calls cleanUp once`, () => expect(cleanUp).toHaveBeenCalledTimes(1))
-      it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalsy())
+      it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalse())
       describe(`when cleanUp resolves`, () => {
         beforeEach(done => {
           cleanUpResolve()
@@ -69,7 +69,7 @@ describe(`@woobly/build-tool-helpers`, () => {
         it(`calls generate once`, () => expect(generate).toHaveBeenCalledTimes(1))
         it(`calls generate with the given metadata`, () => expect(generate).toHaveBeenCalledWith(`Test Metadata`))
         it(`does not call cleanUp again`, () => expect(cleanUp).toHaveBeenCalledTimes(1))
-        it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalsy())
+        it(`does not resolve or reject the returned promise`, () => expect(resolvedPromise).toBeFalse())
         describe(`when generate resolves`, () => {
           beforeEach(done => {
             generateResolve()

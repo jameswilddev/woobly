@@ -93,7 +93,7 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
         it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
-        it(`has created the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
+        it(`has created the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTrue())
         it(`does not modify created files after performGenerate`, async () => {
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-file-h`), `utf8`)).toEqual(`test file h content`)
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-nonexistent-cache-key`, `test-subdirectory`, `test-file-i`), `utf8`)).toEqual(`test file i content`)
@@ -257,8 +257,8 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
         it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
-        it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
-        it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTruthy())
+        it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTrue())
+        it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTrue())
         it(`does not modify created files after performGenerate`, async () => {
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`, `test-file-h`), `utf8`)).toEqual(`test file h content`)
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-without-last-file-written`, `test-subdirectory`, `test-file-i`), `utf8`)).toEqual(`test file i content`)
@@ -545,8 +545,8 @@ describe(`@woobly/build-tool-helpers`, () => {
 
         it(`calls performGenerate once`, () => expect(performGenerate).toHaveBeenCalledTimes(1))
         it(`calls performGenerate with the given metadata`, () => expect(performGenerate).toHaveBeenCalledWith(`Test Metadata`))
-        it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTruthy())
-        it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTruthy())
+        it(`has recreated the base path by the time of calling performGenerate`, () => expect(directoryExistedAtTimeOfCallingPerformGenerate).toBeTrue())
+        it(`has deleted existing files by the time of calling performGenerate`, () => expect(directoryWasClearedAtTimeOfCallingPerformGenerate).toBeTrue())
         it(`does not modify created files after performGenerate`, async () => {
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`, `test-file-h`), `utf8`)).toEqual(`test file h content`)
           expect(await fs.promises.readFile(path.join(baseDirectory, `subdirectory-a`, `subdirectory-b`, `test-cache-key-with-last-file-written-as-directory`, `test-subdirectory`, `test-file-i`), `utf8`)).toEqual(`test file i content`)
