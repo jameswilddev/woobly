@@ -36,7 +36,7 @@
     "@types/pngjs": "3.4.0",
     "@types/progress": "2.0.3",
     "@types/zopflipng-bin": "4.1.0",
-    "jsdom": "16.0.1"
+    "jsdom": "16.1.0"
   },
   "types": "index.d.ts"
 }
