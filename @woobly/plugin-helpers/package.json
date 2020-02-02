@@ -13,7 +13,8 @@
   "files": [
     "**/*.js",
     "**/*.d.ts",
-    "!**/*-tests.*"
+    "!**/*-tests.*",
+    "**/*.pug"
   ],
   "repository": {
     "type": "git",

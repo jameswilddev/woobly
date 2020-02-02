@@ -42,6 +42,7 @@ export default async function (
       `**/*.js`,
       `**/*.d.ts`,
       `!**/*-tests.*`,
+      `**/*.pug`,
     ],
     repository: {
       type: `git`,

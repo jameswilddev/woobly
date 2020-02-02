@@ -1,0 +1,10 @@
+html(style="background: black; color: white;")
+  head
+    meta(charset="utf-8")
+    title #{title}
+    meta(name="viewport", content="initial-scale=1, user-scalable=no")
+    | !{faviconsHtml}
+  body
+    noscript Please ensure that your device and browser are up to date, and that JavaScript is enabled.
+    div#loading-message Loading, please wait...
+    script(src="index.js")

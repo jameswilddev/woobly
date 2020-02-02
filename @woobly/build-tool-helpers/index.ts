@@ -49,3 +49,5 @@ export { default as initializePersistentCache } from "./initialize-persistent-ca
 export { default as Cache } from "./cache"
 
 export { default as PersistentCacheItemBase } from "./persistent-cache-item-base"
+
+export { default as generateHtml } from "./generate-html"

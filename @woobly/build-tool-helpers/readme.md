@@ -13,6 +13,7 @@ html-minifier | [![4.0.0](https://img.shields.io/npm/v/html-minifier.svg)](https
 jsonschema    | [![1.2.5](https://img.shields.io/npm/v/jsonschema.svg)](https://www.npmjs.com/package/jsonschema)      
 pngjs         | [![3.4.0](https://img.shields.io/npm/v/pngjs.svg)](https://www.npmjs.com/package/pngjs)                
 progress      | [![2.0.3](https://img.shields.io/npm/v/progress.svg)](https://www.npmjs.com/package/progress)          
+pug           | [![^2.0.4](https://img.shields.io/npm/v/pug.svg)](https://www.npmjs.com/package/pug)                   
 typescript    | [![3.7.5](https://img.shields.io/npm/v/typescript.svg)](https://www.npmjs.com/package/typescript)      
 zopflipng-bin | [![5.0.0](https://img.shields.io/npm/v/zopflipng-bin.svg)](https://www.npmjs.com/package/zopflipng-bin)
 
