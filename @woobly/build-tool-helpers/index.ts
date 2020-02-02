@@ -51,3 +51,7 @@ export { default as Cache } from "./cache"
 export { default as PersistentCacheItemBase } from "./persistent-cache-item-base"
 
 export { default as generateHtml } from "./generate-html"
+
+export { default as FaviconsMetadata } from "./favicons-metadata"
+
+export { default as FaviconsCache } from "./favicons-cache"
