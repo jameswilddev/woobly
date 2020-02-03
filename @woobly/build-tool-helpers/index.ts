@@ -55,3 +55,5 @@ export { default as generateHtml } from "./generate-html"
 export { default as FaviconsMetadata } from "./favicons-metadata"
 
 export { default as FaviconsCache } from "./favicons-cache"
+
+export { default as PluginCache } from "./plugin-cache"

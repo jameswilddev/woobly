@@ -22,7 +22,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@woobly/plugin-helpers": "0.0.0",
     "favicons": "5.5.0",
     "html-minifier": "4.0.0",
     "jsonschema": "1.2.5",
@@ -40,6 +39,7 @@
     "@types/progress": "2.0.3",
     "@types/pug": "2.0.4",
     "@types/zopflipng-bin": "4.1.0",
+    "@woobly/plugin-helpers": "0.0.1",
     "jsdom": "16.1.0"
   },
   "types": "index.d.ts"
