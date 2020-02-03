@@ -10,6 +10,9 @@ export default async function (
     readonly devDependencies?: { readonly [name: string]: string }
     readonly bin?: { readonly [name: string]: string }
     readonly scripts?: { readonly [name: string]: string }
+    readonly wooblyPlugin?: {
+      readonly fileExtension: string
+    }
   }
 ): Promise<void> {
   console.log(`Writing package.json...`)
@@ -54,6 +57,7 @@ export default async function (
     bin: originalPackageJson.bin,
     scripts: originalPackageJson.scripts,
     types: hasTypes ? `index.d.ts` : undefined,
+    wooblyPlugin: originalPackageJson.wooblyPlugin,
   }
 
   const newPackageJsonText = `${JSON.stringify(newPackageJson, null, 2)}\n`

@@ -10,6 +10,9 @@ export default async function (
   readonly devDependencies?: { readonly [name: string]: string }
   readonly bin?: { readonly [name: string]: string }
   readonly scripts?: { readonly [name: string]: string }
+  readonly wooblyPlugin?: {
+    readonly fileExtension: string
+  }
 }> {
   console.log(`Reading package.json...`)
   const packageJsonPath = path.join.apply(path, name.concat([`package.json`]))
