@@ -2,4 +2,4 @@ function exampleFunction(c) {
   return c * c
 }
 
-return a(exampleFunction(b))
+a(exampleFunction(b))
