@@ -79,6 +79,11 @@ describe(`@woobly/build-tool-helpers`, () => {
     }
 
     resolves(`with plugins`, `with-plugins`, [{
+      name: `@pretend-scope/pretend-plugin-d`,
+      cacheKeyPrefix: `pretend-scope@pretend-plugin-d@Test Pretend Plugin D Version`,
+      fileExtension: `test.file.extension.d`,
+      instance: require(path.join(__dirname, `..`, `..`, `test-data`, `search-for-plugins`, `with-plugins`, `node_modules`, `@pretend-scope`, `pretend-plugin-d`)),
+    }, {
       name: `pretend-plugin-a`,
       cacheKeyPrefix: `pretend-plugin-a@Test Pretend Plugin A Version`,
       fileExtension: `test.file.extension.a`,

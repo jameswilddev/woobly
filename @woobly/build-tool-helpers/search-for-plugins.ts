@@ -9,7 +9,9 @@ export default async function (): Promise<ReadonlyArray<SearchedPlugin>> {
   const output: SearchedPlugin[] = []
 
   for (const dependency of dependencies) {
-    const dependencyLocation = path.join(`node_modules`, dependency)
+    const scoped = /@([^\/]+)\/([^\/]+)$/.exec(dependency)
+
+    const dependencyLocation = scoped === null ? path.join(`node_modules`, dependency) : path.join(`node_modules`, `@${scoped[1]}`, scoped[2])
     const dependencyPackageJsonLocation = path.join(dependencyLocation, `package.json`)
 
     let dependencyPackageJsonText: string
@@ -51,7 +53,7 @@ export default async function (): Promise<ReadonlyArray<SearchedPlugin>> {
 
       output.push({
         name: dependency,
-        cacheKeyPrefix: `${dependency}@${dependencyPackageJson.version}`,
+        cacheKeyPrefix: scoped === null ? `${dependency}@${dependencyPackageJson.version}` : `${scoped[1]}@${scoped[2]}@${dependencyPackageJson.version}`,
         fileExtension: dependencyPackageJson.wooblyPlugin.fileExtension,
         instance: require(`${path.join(process.cwd(), `node_modules`, dependency)}`),
       })

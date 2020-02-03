@@ -4,7 +4,9 @@
     "non-plugin-a": "0.0.0",
     "pretend-plugin-b": "0.0.0",
     "non-plugin-b": "0.0.0",
+    "@pretend-scope/pretend-plugin-d": "0.0.0",
     "non-plugin-c": "0.0.0",
+    "@pretend-scope/non-plugin-e": "0.0.0",
     "pretend-plugin-c": "0.0.0",
     "non-plugin-d": "0.0.0"
   }
