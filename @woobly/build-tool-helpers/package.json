@@ -36,7 +36,7 @@
     "@types/favicons": "5.5.0",
     "@types/html-minifier": "3.5.3",
     "@types/jsdom": "12.2.4",
-    "@types/pngjs": "3.4.0",
+    "@types/pngjs": "3.4.1",
     "@types/progress": "2.0.3",
     "@types/pug": "2.0.4",
     "@types/zopflipng-bin": "4.1.0",
