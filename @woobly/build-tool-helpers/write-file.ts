@@ -2,6 +2,7 @@ import * as fs from "fs"
 import * as path from "path"
 import * as zopflipngBin from "zopflipng-bin"
 import * as htmlMinifier from "html-minifier"
+import * as uglifyJs from "uglify-js"
 import shellExecute from "./shell-execute"
 
 export default async function (
@@ -61,6 +62,22 @@ export default async function (
       useShortDoctype: true,
     })
     await fs.promises.writeFile(joined, minified)
+    return
+  }
+
+  if (production && joined.endsWith(`.js`)) {
+    const text = buffer.toString()
+    const parsed = uglifyJs.minify(text, {
+      compress: true,
+      mangle: true,
+      toplevel: true,
+    })
+
+    if (parsed.error) {
+      throw parsed.error
+    }
+
+    await fs.promises.writeFile(joined, parsed.code)
     return
   }
 

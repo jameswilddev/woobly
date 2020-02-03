@@ -224,5 +224,40 @@ describe(`@woobly/build-tool-helpers`, () => {
         )
       })
     }
+
+    describe(`production invalid javascript`, () => {
+      let destinationFilePath: string
+      let thrown: null | Error = null
+      beforeAll(async () => {
+        const sourceFilePath = path.join(`test-data`, `write-file`, `invalid.js`)
+        const buffer = await fs.promises.readFile(sourceFilePath)
+
+        const baseDir = await fs.promises.mkdtemp(
+          path.join(os.tmpdir(), `woobly-build-tool-helpers-write-file-tests`)
+        )
+        destinationFilePath = path.join(baseDir, `invalid.js`)
+
+        try {
+          await writeFile([baseDir, `invalid.js`], buffer, true)
+        } catch (e) {
+          thrown = e
+        }
+      })
+
+      afterAll(async () => {
+        await fs.promises.rmdir(destinationFilePath, { recursive: true })
+      })
+
+      it(`throws the expected error`, () => expect(thrown).toEqual(new SyntaxError(`Unexpected token: eof, expected: punc «}»`)))
+
+      it(`does not write the destination file`, async () => {
+        try {
+          await fs.promises.access(destinationFilePath)
+          fail()
+        } catch (e) {
+          expect(e.code).toEqual(`ENOENT`)
+        }
+      })
+    })
   })
 })
