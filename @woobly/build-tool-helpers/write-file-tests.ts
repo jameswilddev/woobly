@@ -205,6 +205,23 @@ describe(`@woobly/build-tool-helpers`, () => {
             )
           }
         )
+
+        scenario(
+          `javascript`,
+          `example.js`,
+          (sourceFilePath, destinationFilePath) => {
+            sourceFilePath
+            let result: number
+
+            beforeAll(async () => {
+              const source = await fs.promises.readFile(destinationFilePath(), `utf8`)
+              const func = new Function(`a`, `b`, source)
+              func((answer: number) => result = answer, 14)
+            })
+
+            it(`writes executable Javascript`, () => expect(result).toEqual(196))
+          }
+        )
       })
     }
   })
