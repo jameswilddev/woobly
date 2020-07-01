@@ -16,7 +16,7 @@
     "@types/node": "12.12.26",
     "del-cli": "3.0.0",
     "jasmine": "3.5.0",
-    "nyc": "15.0.0",
+    "nyc": "15.1.0",
     "typescript": "3.7.5"
   },
   "scripts": {
