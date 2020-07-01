@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/favicons": "5.5.0",
-    "@types/html-minifier": "3.5.3",
+    "@types/html-minifier": "4.0.0",
     "@types/jsdom": "12.2.4",
     "@types/pngjs": "3.4.1",
     "@types/progress": "2.0.3",
