@@ -30,7 +30,7 @@
     "pug": "2.0.4",
     "typescript": "3.7.5",
     "uglify-js": "^3.7.6",
-    "zopflipng-bin": "5.0.0"
+    "zopflipng-bin": "6.0.1"
   },
   "devDependencies": {
     "@types/favicons": "5.5.0",
