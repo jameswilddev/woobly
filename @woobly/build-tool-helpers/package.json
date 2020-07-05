@@ -27,7 +27,7 @@
     "jsonschema": "1.2.5",
     "pngjs": "3.4.0",
     "progress": "2.0.3",
-    "pug": "2.0.4",
+    "pug": "3.0.0",
     "typescript": "3.7.5",
     "uglify-js": "^3.7.6",
     "zopflipng-bin": "5.0.0"
