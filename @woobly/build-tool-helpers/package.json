@@ -24,7 +24,7 @@
   "dependencies": {
     "favicons": "5.5.0",
     "html-minifier": "4.0.0",
-    "jsonschema": "1.2.5",
+    "jsonschema": "1.4.0",
     "pngjs": "3.4.0",
     "progress": "2.0.3",
     "pug": "2.0.4",
