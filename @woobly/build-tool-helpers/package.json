@@ -22,7 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "favicons": "5.5.0",
+    "favicons": "6.2.0",
     "html-minifier": "4.0.0",
     "jsonschema": "1.2.5",
     "pngjs": "3.4.0",
@@ -33,7 +33,7 @@
     "zopflipng-bin": "5.0.0"
   },
   "devDependencies": {
-    "@types/favicons": "5.5.0",
+    "@types/favicons": "6.2.0",
     "@types/html-minifier": "3.5.3",
     "@types/jsdom": "12.2.4",
     "@types/pngjs": "3.4.1",
